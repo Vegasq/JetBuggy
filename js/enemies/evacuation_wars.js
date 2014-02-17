@@ -10,6 +10,7 @@ function EvaWars(main){
                 if (item.x < 0 && item.was_checked !== true){
                     item.was_checked = true;
                     that.main.score += 1;
+                    that.main.update_score();
                 } else if (item.x < -200){
                     item.kill();
                 }
@@ -54,7 +55,7 @@ function EvaWars(main){
         } else {
             bomb_sprite = that.evacuation_wars.create(
                 Tools.screen_size()[0] + 100,
-                that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.main.sizer.convert_size(SETTINGS.car_size),
+                that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.main.car.height * 2,
                 'subway');
             bomb_sprite.was_checked = false;
             bomb_sprite.body.moves = false;
