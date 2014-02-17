@@ -16,13 +16,16 @@ var SETTINGS = {
     'ground_width': 888,
     'ground_bottom_offset': 100,
     'world_speed': 6,
+    'default_world_speed': 6,
 
     'real_ground_offset': 80,
     'visible_ground_offset': 79.9,
     'car_size': 12,
 
     'ground_start': 0.7,
-    'frame_counter': 0
+    'frame_counter': 0,
+    'gravity': 500,
+    'jump_power': -350,
 }
 
 
@@ -89,7 +92,7 @@ function JetBuggy(){
     };
 
     that.create = function(){
-        game.physics.gravity.y = 200;
+        game.physics.gravity.y = SETTINGS.gravity;
 
         var bg_screen_diff = (SETTINGS.bg_size.y - game.height) + SETTINGS.ground_height;
         if (bg_screen_diff > 0){
@@ -160,7 +163,9 @@ function JetBuggy(){
 
                 if(that.bomb_delay_counter > that.bomb_delay) {
                     that.bomb_delay_counter = 0;
-                    if(SETTINGS.frame_counter > 0){
+
+                    var rand = Math.random();
+                    if(rand > 0.3){
                         SETTINGS.frame_counter = 0;
                         that.bombs.create_bomb();
                     } else {
@@ -193,7 +198,18 @@ function JetBuggy(){
 
 
     that.badaboom = function(a, b){
+        if (a.alive !== true || b.alive !== true){
+            return;
+        }
+
+        that.evawars.destroy_evacuation_wars();
+        that.bombs.destroy_bombs();
+        a.revive();
+        b.revive();
+
+
         that.game_status = that.STATUS.SCORE;
+        SETTINGS.world_speed = 0;
 
         that.boom.revive();
 
@@ -216,16 +232,18 @@ function JetBuggy(){
         // that.shadow.init(that.jumpstory);
         // that.jumplog.init();
 
-        console.log('here');
+        SETTINGS.world_speed = SETTINGS.default_world_speed;
+
         that.evawars.destroy_evacuation_wars();
         that.bombs.destroy_bombs();
-        console.log('after destroy');
-        that.bomb_delay = 100;
-        that.bomb_delay_counter = 100;
+
+        that.bomb_delay = 99;
+        that.bomb_delay_counter = 99;
 
         that.play_button.visible = false;
         that.score_text.visible = true;
         that.score = 0;
+        that.update_score();
         if (that.boom.animations.isFinished){
             that.boom.visible = false;
         }
@@ -243,7 +261,7 @@ function JetBuggy(){
             that.game_status = that.STATUS.GAME;
             // that.shadow.play();
         }
-        setTimeout(matrix, 100);
+        setTimeout(matrix, 1000);
     };
 
     that.render = function(){
@@ -252,7 +270,7 @@ function JetBuggy(){
     that.car_jump = function(){
         if (that.game_status === that.STATUS.GAME && that.car.y > that.sizer.convert_size(SETTINGS.visible_ground_offset) - that.car.height - (that.car.height/3)){
             // that.jumplog.click();
-            that.car.body.velocity.y = -220;
+            that.car.body.velocity.y = SETTINGS.jump_power;
         }
     };
 

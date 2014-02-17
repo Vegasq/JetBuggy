@@ -28,7 +28,7 @@ function EvaWars(main){
 	        	}
 	        });
 		} catch (e) {
-			// pass
+			console.log(e, '!!!!');
 		}
 
         // that.eva_bank = [];

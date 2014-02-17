@@ -20,13 +20,13 @@ function Bombs(main){
     }
 
     that.destroy_bombs = function(){
-        try{
             that.ground_bombs.forEach(function(item){
                 if(item){
-                    item.x = Tools.screen_size()[0];
+                    item.x = game.width;
                     item.kill();
                 }
             });
+        try{
         } catch (e) {
             // pass
         }
@@ -44,7 +44,11 @@ function Bombs(main){
                     that.bomb_bank[i].revive();
                     that.bomb_bank[i].visible = true;
 
-                    that.bomb_bank[i].x = Tools.screen_size()[0] + 100;
+                    that.bomb_bank[i].height = that.main.car.height * (Math.random() + 1);
+
+                    that.bomb_bank[i].y = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.bomb_bank[i].height;
+
+                    that.bomb_bank[i].x = game.width + 100;
                     that.bomb_bank[i].was_checked = false;
                     break;
                 }
@@ -54,11 +58,8 @@ function Bombs(main){
                 Tools.screen_size()[0] + 100, that.main.sizer.convert_size(SETTINGS.visible_ground_offset), 'bomb');
             bomb_sprite.was_checked = false;
             bomb_sprite.body.moves = false;
-            bomb_sprite.height = that.main.car.height * 1.7;
+            bomb_sprite.height = that.main.car.height * (Math.random() + 1);
             bomb_sprite.y = bomb_sprite.y - bomb_sprite.height;
-            bomb_sprite.animations.add('subway');
-            bomb_sprite.animations.play('subway', 10, true);
-
             that.bomb_bank.push(bomb_sprite);
         }
     }
