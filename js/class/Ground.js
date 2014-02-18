@@ -14,7 +14,7 @@ function Ground(main){
         that.ground_sprites = game.add.group();
         // return;
 
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 2; i++)
         {
             ground_sprite = that.ground_sprites.create(i * SETTINGS.ground_width, that.main.sizer.convert_size(SETTINGS.visible_ground_offset), 'ground');
             ground_sprite.body.moves = false;
@@ -23,9 +23,11 @@ function Ground(main){
 
     that.move = function(){
         that.ground_sprites.forEach(function(item){
-            item.x = item.x - SETTINGS.world_speed;
             if (item.x <= -1000){
-                item.x = Math.abs(item.x) * 5;
+                var diff = Math.abs(item.x) - 1000;
+                item.x = (1000 * 2) - diff;
+            } else {
+                item.x = item.x - SETTINGS.world_speed;
             }
         });
     }
