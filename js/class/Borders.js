@@ -1,4 +1,6 @@
 function Borders(main){
+    "use strict";
+
     var that = this;
     that.main = main;
 
@@ -13,12 +15,30 @@ function Borders(main){
             border.body.moves = false;
         };
     }
+
+    function _move_get_x(x, world_speed, game_width){
+        "use asm";
+
+        var x = x|0;
+        var world_speed = world_speed|0;
+        var game_width = game_width|0;
+        var result = 0;
+
+        result = x - world_speed;
+        if (result < -30){
+            result = game_width;
+        }
+
+        return result|0;
+    }
+
     that.move = function(){
         that.border_group.forEach(function(item){
-            item.x -= SETTINGS.world_speed;
-            if (item.x < -30){
-                item.x = game.width;
-            }
+            item.x = _move_get_x(item.x, SETTINGS.world_speed, game.width);
+            // item.x -= SETTINGS.world_speed;
+            // if (item.x < -30){
+            //     item.x = game.width;
+            // }
         });
     }
 }

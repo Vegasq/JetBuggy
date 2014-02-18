@@ -1,4 +1,6 @@
 function EvaWars(main){
+    "use strict";
+
 	var that = this;
 	that.main = main;
 	that.evacuation_wars = NaN;

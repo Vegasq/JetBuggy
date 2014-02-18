@@ -61,6 +61,8 @@ function Sizer(){
 
 
 function JetBuggy(){
+    "use strict";
+
     var that = this;
 
     that.score = 0;
@@ -130,7 +132,6 @@ function JetBuggy(){
         // that.create_bg();
 
         that.score.create();
-        that.create_menu_button();
 
         that.borders.init();
         that.evawars.init();
@@ -141,8 +142,10 @@ function JetBuggy(){
 
         that.car.create();
 
+        that.create_menu_button();
+
         document.addEventListener('touchstart', that.car.jump, false);
-        document.addEventListener('click', that.car.jump, false);
+        document.addEventListener('mousedown', that.car.jump, false);
     };
 
     that.create_barrier = function(){

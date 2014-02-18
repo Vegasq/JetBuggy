@@ -1,4 +1,6 @@
 function Bombs(main){
+    "use strict";
+
     var that = this;
     that.main = main;
     that.ground_bombs = NaN;

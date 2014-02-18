@@ -1,4 +1,6 @@
 function Score(main){
+    "use strict";
+
     var that = this;
     that.main = main;
     that.score = 0;
