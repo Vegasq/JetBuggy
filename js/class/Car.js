@@ -3,12 +3,21 @@ function Car(main){
     that.main = main;
     that.sprite = false;
 
+    that.GRAVITY = SETTINGS.gravity;
+    that.BOUNCE = 0.3;
+    that.SCALE = 0.7;
+
     that.create = function(){
         that.sprite = game.add.sprite(50, game.world.centerY * 1.3, 'car');
+        that.sprite.body.mass = 1;
+
         that.sprite.body.collideWorldBounds = true;
-        that.sprite.body.bounce.y = 0.001;
-        that.sprite.scale.y = 0.7;
-        that.sprite.scale.x = 0.7;
+
+        that.sprite.body.bounce.y = that.BOUNCE;
+        that.sprite.body.gravity.y = that.GRAVITY;
+
+        that.sprite.scale.y = that.SCALE;
+        that.sprite.scale.x = that.SCALE;
         that.sprite.animations.add('drive', [0,1],
             10,
             true);
@@ -24,7 +33,7 @@ function Car(main){
         that.sprite.visible = false;
     }
 
-    that.car_jump = function(){
+    that.jump = function(){
         var frontier = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.sprite.height - (that.sprite.height/3);
         var is_game = that.main.game_status === that.main.STATUS.GAME;
 
@@ -33,10 +42,10 @@ function Car(main){
         }
     }
 
-    that.car_update = function(){
-        if (that.sprite.y > that.main.sizer.convert_size(SETTINGS.ground_offset) - that.sprite.height){
-            that.sprite.y = that.main.sizer.convert_size(SETTINGS.ground_offset) - that.sprite.height;
-        }
+    that.update = function(){
+        // if (that.sprite.y > that.main.sizer.convert_size(SETTINGS.ground_offset) - that.sprite.height){
+        //     that.sprite.y = that.main.sizer.convert_size(SETTINGS.ground_offset) - that.sprite.height;
+        // }
 
         if(that.sprite.body.velocity.y < -1){
             that.sprite.angle = that.sprite.body.velocity.y / 20;

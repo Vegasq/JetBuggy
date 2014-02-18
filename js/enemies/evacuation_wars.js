@@ -3,14 +3,14 @@ function EvaWars(main){
 	that.main = main;
 	that.evacuation_wars = NaN;
 
-    that.move_evacuation_wars = function(){
+    that.move = function(){
         that.evacuation_wars.forEach(function(item){
             if(item.alive){
                 item.x = item.x - SETTINGS.world_speed;
                 if (item.x < 0 && item.was_checked !== true){
                     item.was_checked = true;
-                    that.main.score += 1;
-                    that.main.update_score();
+                    that.main.score.score += 1;
+                    that.main.score.update();
                 } else if (item.x < -200){
                     item.kill();
                 }
@@ -35,7 +35,7 @@ function EvaWars(main){
     }
 
 
-    that.create_evacuation_wars = function(){
+    that.init = function(){
         that.eva_bank = [];
         that.evacuation_wars = game.add.group();
     }
@@ -53,12 +53,13 @@ function EvaWars(main){
                 }
             };
         } else {
-            bomb_sprite = that.evacuation_wars.create(
+            var bomb_sprite = that.evacuation_wars.create(
                 Tools.screen_size()[0] + 100,
                 that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.main.car.sprite.height * 2,
                 'subway');
             bomb_sprite.was_checked = false;
             bomb_sprite.body.moves = false;
+            bomb_sprite.body.allowGravity = false;
             bomb_sprite.y = bomb_sprite.y - bomb_sprite.height;
             bomb_sprite.animations.add('subway');
             bomb_sprite.animations.play('subway', 10, true);

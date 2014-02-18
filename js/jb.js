@@ -76,48 +76,46 @@ function JetBuggy(){
 
     that.preload = function(){
         that.sizer = new Sizer();
+        that.score = new Score();
         that.evawars = new EvaWars(that);
         that.bombs = new Bombs(that);
         that.car = new Car(that);
+        that.ground = new Ground(that);
+        that.borders = new Borders(that);
+
         // that.jumplog = new JumpLog(that);
         // that.shadow = new Shadow();
 
         game.load.spritesheet('car', 'images/buggy.png', 137, 70, 2);
-        // game.load.image('bg', 'images/bg3.gif');
         game.load.image('ground', 'images/ground.gif');
-
         game.load.image('real_ground', 'images/back_ground.gif');
-
         game.load.image('border', 'images/border.png');
-        game.load.image('bomb', 'images/barel.png');
+        game.load.image('bomb', 'images/brickwall.jpg');
         game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
         game.load.spritesheet('boom','images/boom.png',100, 100, 48);
         game.load.spritesheet('subway','images/subway.png', 200, 80, 2);
+        // game.load.image('bg', 'images/bg3.gif');
     };
 
-    that.create = function(){
-        game.physics.gravity.y = SETTINGS.gravity;
-
-        var bg_screen_diff = (SETTINGS.bg_size.y - game.height) + SETTINGS.ground_height;
-        if (bg_screen_diff > 0){
-            bg_screen_diff = bg_screen_diff * -1;
-        }
+    that.create_bg = function(){
+        // var bg_screen_diff = (SETTINGS.bg_size.y - game.height) + SETTINGS.ground_height;
+        // if (bg_screen_diff > 0){
+        //     bg_screen_diff = bg_screen_diff * -1;
+        // }
 
         // var bg = game.add.sprite(-2, bg_screen_diff, 'bg');
         // bg.body.moves = false;
-                
-        that.score_text = game.add.text(10, 10,
-            '', {'font-size': 32, 'fill': '#ffffff'});
+    }
 
-        // button = game.add.sprite(150, 200, 'button');
-
+    that.create_boom_animation = function(){
         that.boom = game.add.sprite(0, 0, 'boom');
         that.boom.body.moves = false;
         that.boom.animations.add('boom');
         that.boom.visible = false;
         that.boom.kill();
+    }
 
-
+    that.create_menu_button = function(){
         that.play_button = game.add.button(
             game.world.centerX, game.world.centerY, 
             'button',
@@ -126,27 +124,29 @@ function JetBuggy(){
         that.play_button.anchor.setTo(0.5, 0.5);
 
         that.play_button.body.moves = false;
+    }
 
-        that.create_ground();
-        that.create_border_group();
-        that.bombs.create_bombs_group();
-        that.evawars.create_evacuation_wars();
+    that.create = function(){
+        // that.create_bg();
+
+        that.score.create();
+        that.create_menu_button();
+
+        that.borders.init();
+        that.evawars.init();
+        that.bombs.init();
+        that.ground.init();
+
+        that.create_boom_animation();
 
         that.car.create();
 
-        document.addEventListener('touchstart', that.car.car_jump, false);
-        document.addEventListener('click', that.car.car_jump, false);
+        document.addEventListener('touchstart', that.car.jump, false);
+        document.addEventListener('click', that.car.jump, false);
     };
 
-    that.update = function(){
-
-        that.move_ground();
-
-        that.move_border();
-        that.evawars.move_evacuation_wars();
-
+    that.create_barrier = function(){
         if ( that.game_status === that.STATUS.GAME || that.game_status === that.STATUS.SCORE ){
-            that.bombs.move_bombs();
             if(that.game_status === that.STATUS.GAME){
                 that.bomb_delay_counter += 1;
 
@@ -166,32 +166,44 @@ function JetBuggy(){
                 }
                 
             }
-
-
         }
-        that.car.car_update();
-        
+    }
 
-        game.physics.collide(that.car.sprite, that.real_ground);
+    that.update = function(){
+        // Move decorations
+        that.ground.move();
+        that.borders.move();
 
+        // Move barriers
+        that.evawars.move();
+        that.bombs.move();
+
+        // Try to create barrier
+        that.create_barrier();
+
+        // ...
+        that.car.update();
+
+        // Collides        
+        game.physics.collide(that.car.sprite, that.ground.real_ground);
         game.physics.collide(that.car.sprite, that.bombs.ground_bombs, that.badaboom);
         game.physics.collide(that.car.sprite, that.evawars.evacuation_wars, that.badaboom);
-
-
     };
-
-    that.update_score = function(){
-        that.score_text.setText('Your score: ' + that.score);
-    };
-
 
     that.badaboom = function(a, b){
         if (a.alive !== true || b.alive !== true){
             return;
         }
 
-        that.evawars.destroy_evacuation_wars();
-        that.bombs.destroy_bombs();
+        console.log(a,b);
+
+        if(Math.abs(a.x - b.x) > 200){
+            // sometimes game have not enough time to remove object from
+            // collision manager. And pklayer could smash into invisiablwe wall.
+            return;
+        }
+
+
         a.revive();
         b.revive();
 
@@ -225,9 +237,11 @@ function JetBuggy(){
         that.bomb_delay_counter = 99;
 
         that.play_button.visible = false;
-        that.score_text.visible = true;
-        that.score = 0;
-        that.update_score();
+
+        that.score.show();
+        that.score.reset();
+        that.score.update();
+
         if (that.boom.animations.isFinished){
             that.boom.visible = false;
         }
@@ -243,48 +257,6 @@ function JetBuggy(){
 
     that.render = function(){
     };
-
-    that.create_ground = function(){
-        that.real_ground = game.add.sprite(0, that.sizer.convert_size(SETTINGS.real_ground_offset), 'real_ground');
-        // that.real_ground.scale.x = 3;
-        that.real_ground.body.moves = false;
-        that.ground_sprites = game.add.group();
-        // return;
-
-        for (var i = 0; i < 3; i++)
-        {
-            ground_sprite = that.ground_sprites.create(i * SETTINGS.ground_width, that.sizer.convert_size(SETTINGS.visible_ground_offset), 'ground');
-            ground_sprite.body.moves = false;
-        }
-    }
-
-    that.move_ground = function(){
-        that.ground_sprites.forEach(function(item){
-            item.x = item.x - SETTINGS.world_speed;
-            if (item.x <= -1000){
-                item.x = game.width;
-            }
-        });
-    }
-
-    that.create_border_group = function(){
-        that.border_group = game.add.group();
-        // return;
-        var count = (game.width / 30) + 1;
-        for (var i = 0; count > i; i++) {
-            var border = that.border_group.create(i * 30, -30, 'border');
-            border.y = that.sizer.convert_size(SETTINGS.visible_ground_offset) - border.height;
-            border.body.moves = false;
-        };
-    }
-    that.move_border = function(){
-        that.border_group.forEach(function(item){
-            item.x -= SETTINGS.world_speed;
-            if (item.x < -30){
-                item.x = game.width;
-            }
-        });
-    }
 
 
 
