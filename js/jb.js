@@ -1,11 +1,19 @@
 var Tools = {
-    'screen_size': function(){
+    'screen_size': function(optimized){
         var w = window,
             d = document,
             e = d.documentElement,
             g = d.getElementsByTagName('body')[0],
             x = w.innerWidth || e.clientWidth || g.clientWidth,
             y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+            if(optimized){
+                if (x > 1850){
+                    x = 1850;
+                }
+                if (y > 800){
+                    y = 800;
+                }                
+            }
             return [x, y];
     }
 };
@@ -77,6 +85,8 @@ function JetBuggy(){
     that.game_status = that.STATUS.MENU;
 
     that.preload = function(){
+
+
         that.sizer = new Sizer();
         that.score = new Score();
         that.evawars = new EvaWars(that);
@@ -96,10 +106,17 @@ function JetBuggy(){
         game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
         game.load.spritesheet('boom','images/boom.png',100, 100, 48);
         game.load.spritesheet('subway','images/subway.png', 200, 80, 2);
-        game.load.image('bg', 'images/bg4.jpg');
+
+        if (game.width < 1150) {
+            game.load.image('bg', 'images/bg_1150.png');
+        } else {
+            game.load.image('bg', 'images/bg_2300.png');
+        }
     };
 
     that.create_bg = function(){
+
+
         var half_height = game.height / 2;
         var half_bg = SETTINGS.bg_size.y / 2;
         var y = half_height - half_bg;
@@ -200,6 +217,7 @@ function JetBuggy(){
         console.log(a,b);
 
         if(Math.abs(a.x - b.x) > 200){
+            b.x = game.width;
             // sometimes game have not enough time to remove object from
             // collision manager. And pklayer could smash into invisiablwe wall.
             return;
@@ -265,6 +283,9 @@ function JetBuggy(){
 }
 
 
+window.onresize = function(event) {
+    document.location = document.location;
+};
 var jb = new JetBuggy();
 var game = new Phaser.Game(
     Tools.screen_size()[0], Tools.screen_size()[1], Phaser.AUTO,

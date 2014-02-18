@@ -37,27 +37,10 @@ function Car(main){
         that.sprite.visible = false;
     }
 
-    function _jump(game_status, required_status, frontier, y){
-        "use asm";
-
-        var game_status = game_status|0;
-        var required_status = required_status|0;
-        var frontier = frontier|0;
-        var y = y|0;
-
-        var result = 0|0;
-
-        if (game_status == required_status && y > frontier){
-            result = 1|0;
-        }
-        return result;
-    }
-
-
     that.jump = function(){
         var is_game = that.main.game_status === that.main.STATUS.GAME;
 
-        if (_jump(that.main.game_status, that.main.STATUS.GAME, that.frontier, that.sprite.y) === 1){
+        if (is_game && that.sprite.y > that.frontier){
             that.sprite.body.velocity.y = SETTINGS.jump_power;
         }
     }

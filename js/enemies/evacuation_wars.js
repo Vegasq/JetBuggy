@@ -43,7 +43,7 @@ function EvaWars(main){
     }
 
     that.create_evacuation_war = function(){
-        if( that.eva_bank.length > 3 ){
+        if( that.eva_bank.length > 6 ){
             for (var i = that.eva_bank.length - 1; i >= 0; i--) {
                 if(that.eva_bank[i].x < -10 || that.eva_bank[i].alive === false){
                     that.eva_bank[i].revive();
