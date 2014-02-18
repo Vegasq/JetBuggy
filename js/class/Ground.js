@@ -20,7 +20,10 @@ function Ground(main){
 
         for (var i = 0; i < 3; i++)
         {
-            ground_sprite = that.ground_sprites.create(i * SETTINGS.ground_width, that.main.sizer.convert_size(SETTINGS.visible_ground_offset), 'ground');
+            ground_sprite = that.ground_sprites.create(
+                i * SETTINGS.ground_width,
+                that.main.sizer.convert_size(SETTINGS.visible_ground_offset),
+                'ground');
             ground_sprite.body.moves = false;
         }
     }

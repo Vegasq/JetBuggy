@@ -11,7 +11,7 @@ var Tools = {
 };
 
 var SETTINGS = {
-    'bg_size': {'x': 1442, 'y': 1558},
+    'bg_size': {'x': 1440, 'y': 850},
     'ground_height': 70,
     'ground_width': 1000,
     'ground_bottom_offset': 100,
@@ -96,17 +96,16 @@ function JetBuggy(){
         game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
         game.load.spritesheet('boom','images/boom.png',100, 100, 48);
         game.load.spritesheet('subway','images/subway.png', 200, 80, 2);
-        // game.load.image('bg', 'images/bg3.gif');
+        game.load.image('bg', 'images/bg4.jpg');
     };
 
     that.create_bg = function(){
-        // var bg_screen_diff = (SETTINGS.bg_size.y - game.height) + SETTINGS.ground_height;
-        // if (bg_screen_diff > 0){
-        //     bg_screen_diff = bg_screen_diff * -1;
-        // }
+        var half_height = game.height / 2;
+        var half_bg = SETTINGS.bg_size.y / 2;
+        var y = half_height - half_bg;
 
-        // var bg = game.add.sprite(-2, bg_screen_diff, 'bg');
-        // bg.body.moves = false;
+        var bg = game.add.sprite(0, y, 'bg');
+        bg.body.moves = false;
     }
 
     that.create_boom_animation = function(){
@@ -129,7 +128,7 @@ function JetBuggy(){
     }
 
     that.create = function(){
-        // that.create_bg();
+        that.create_bg();
 
         that.score.create();
 
