@@ -22,6 +22,8 @@ function Car(main){
             10,
             true);
         that.sprite.animations.play('drive', 10, true);
+        that.frontier = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.sprite.height - (that.sprite.height/3);
+
     }
 
     that.hide = function(){
@@ -34,10 +36,9 @@ function Car(main){
     }
 
     that.jump = function(){
-        var frontier = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.sprite.height - (that.sprite.height/3);
         var is_game = that.main.game_status === that.main.STATUS.GAME;
 
-        if (is_game && that.sprite.y > frontier){
+        if (is_game && that.sprite.y > that.frontier){
             that.sprite.body.velocity.y = SETTINGS.jump_power;
         }
     }
