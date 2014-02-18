@@ -100,9 +100,11 @@ function JetBuggy(){
         // that.shadow = new Shadow();
 
         game.load.spritesheet('car', 'images/buggy.png', 137, 70, 2);
+        game.load.spritesheet('car_blue', 'images/buggy_blue.png', 144, 96, 1);
         game.load.image('ground', 'images/ground.gif');
         game.load.image('real_ground', 'images/back_ground.gif');
         game.load.image('border', 'images/border.png');
+        game.load.image('top_bar', 'images/top_bar.png');
         game.load.spritesheet('jump_btn', 'images/jump.png', 100, 100, 2);
         game.load.image('bomb', 'images/brickwall.jpg');
         game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
@@ -126,6 +128,11 @@ function JetBuggy(){
         bg.body.moves = false;
     }
 
+    that.create_top_bar = function(){
+        var bg = game.add.sprite(0, 0, 'top_bar');
+        bg.body.moves = false;        
+    }
+
     that.create_boom_animation = function(){
         that.boom = game.add.sprite(0, 0, 'boom');
         that.boom.body.moves = false;
@@ -147,7 +154,7 @@ function JetBuggy(){
 
     that.create = function(){
         that.create_bg();
-
+        that.create_top_bar();
         that.score.create();
 
         that.borders.init();
@@ -252,6 +259,15 @@ function JetBuggy(){
         // that.jumpstory = that.jumplog.get_last();
         // that.shadow.init(that.jumpstory);
         // that.jumplog.init();
+
+        var avaliable_cars = [];
+        for (var i in CarList) {
+            if(CarList.hasOwnProperty(i)){
+                avaliable_cars.push(i);
+            }
+        }
+        var rand = avaliable_cars[Math.floor(Math.random() * avaliable_cars.length)];
+        that.car.change(CarList[rand]);
 
         SETTINGS.world_speed = SETTINGS.default_world_speed;
 
