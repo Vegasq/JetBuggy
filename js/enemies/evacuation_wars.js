@@ -55,7 +55,7 @@ function EvaWars(main){
         } else {
             bomb_sprite = that.evacuation_wars.create(
                 Tools.screen_size()[0] + 100,
-                that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.main.car.height * 2,
+                that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.main.car.sprite.height * 2,
                 'subway');
             bomb_sprite.was_checked = false;
             bomb_sprite.body.moves = false;

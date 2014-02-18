@@ -44,7 +44,7 @@ function Bombs(main){
                     that.bomb_bank[i].revive();
                     that.bomb_bank[i].visible = true;
 
-                    that.bomb_bank[i].height = that.main.car.height * (Math.random() + 1);
+                    that.bomb_bank[i].height = that.main.car.sprite.height * (Math.random() + 1);
 
                     that.bomb_bank[i].y = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.bomb_bank[i].height;
 
@@ -58,7 +58,7 @@ function Bombs(main){
                 Tools.screen_size()[0] + 100, that.main.sizer.convert_size(SETTINGS.visible_ground_offset), 'bomb');
             bomb_sprite.was_checked = false;
             bomb_sprite.body.moves = false;
-            bomb_sprite.height = that.main.car.height * (Math.random() + 1);
+            bomb_sprite.height = that.main.car.sprite.height * (Math.random() + 1);
             bomb_sprite.y = bomb_sprite.y - bomb_sprite.height;
             that.bomb_bank.push(bomb_sprite);
         }

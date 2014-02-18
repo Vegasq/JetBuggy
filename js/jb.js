@@ -78,6 +78,7 @@ function JetBuggy(){
         that.sizer = new Sizer();
         that.evawars = new EvaWars(that);
         that.bombs = new Bombs(that);
+        that.car = new Car(that);
         // that.jumplog = new JumpLog(that);
         // that.shadow = new Shadow();
 
@@ -128,20 +129,10 @@ function JetBuggy(){
         that.bombs.create_bombs_group();
         that.evawars.create_evacuation_wars();
 
-        that.car = game.add.sprite(50, game.world.centerY * 1.3, 'car');
-        that.car.body.collideWorldBounds = true;
-        that.car.body.bounce.y = 0.001;
+        that.car.create();
 
-        that.car.scale.y = 0.7;
-        that.car.scale.x = 0.7;
-
-        that.car.animations.add('drive', [0,1],
-            10,
-            true);
-
-        that.car.animations.play('drive', 10, true);
-        document.addEventListener('touchstart', that.car_jump, false);
-        document.addEventListener('click', that.car_jump, false);
+        document.addEventListener('touchstart', that.car.car_jump, false);
+        document.addEventListener('click', that.car.car_jump, false);
     };
 
     that.update = function(){
@@ -180,14 +171,14 @@ function JetBuggy(){
 
 
         }
-        that.car_update();
+        that.car.car_update();
         
 
-        game.physics.collide(that.car, that.real_ground);
+        game.physics.collide(that.car.sprite, that.real_ground);
         // game.physics.collide(that.shadow.car, that.real_ground);
 
-        game.physics.collide(that.car, that.bombs.ground_bombs, that.badaboom);
-        game.physics.collide(that.car, that.evawars.evacuation_wars, that.badaboom);
+        game.physics.collide(that.car.sprite, that.bombs.ground_bombs, that.badaboom);
+        game.physics.collide(that.car.sprite, that.evawars.evacuation_wars, that.badaboom);
 
 
     };
@@ -217,12 +208,8 @@ function JetBuggy(){
         that.boom.y = a.y - 30;
 
         that.boom.animations.play('boom', 30, false);
-        that.car.animations.stop();
 
-        that.car.x = -100;
-        that.car.y = -100;
-        that.car.kill();
-        that.car.visible = false;
+        that.car.hide();
 
         that.play_button.visible = true;
     };
@@ -248,14 +235,7 @@ function JetBuggy(){
             that.boom.visible = false;
         }
 
-        if (that.car.x < 0){
-            that.car.x = 50;
-        }
-        that.car.y = game.world.centerY * 1.3;
-
-        that.car.visible = true;
-        that.car.revive();
-        that.car.animations.play('drive', 10, true);
+        that.car.wake_up();
 
         function matrix(){
             that.game_status = that.STATUS.GAME;
@@ -265,26 +245,6 @@ function JetBuggy(){
     };
 
     that.render = function(){
-    };
-
-    that.car_jump = function(){
-        if (that.game_status === that.STATUS.GAME && that.car.y > that.sizer.convert_size(SETTINGS.visible_ground_offset) - that.car.height - (that.car.height/3)){
-            // that.jumplog.click();
-            that.car.body.velocity.y = SETTINGS.jump_power;
-        }
-    };
-
-    that.car_update = function(){
-        // if (that.car.y > that.sizer.convert_size(SETTINGS.ground_offset) - that.car.height){
-        //     that.car.y = that.sizer.convert_size(SETTINGS.ground_offset) - that.car.height;
-        // }
-
-        if(that.car.body.velocity.y < -1){
-            that.car.angle = that.car.body.velocity.y / 20;
-        } else {
-            that.car.angle = 0;
-        }
-
     };
 
     that.create_ground = function(){
@@ -328,7 +288,7 @@ function JetBuggy(){
 var jb = new JetBuggy();
 var game = new Phaser.Game(
     Tools.screen_size()[0], Tools.screen_size()[1], Phaser.AUTO,
-    'phaser-example', { 
+    'JetBuggy', { 
         preload: jb.preload,
         create: jb.create,
         render: jb.render,
