@@ -25,7 +25,7 @@ function Ground(main){
         that.ground_sprites.forEach(function(item){
             item.x = item.x - SETTINGS.world_speed;
             if (item.x <= -1000){
-                item.x = 1000 * 5;
+                item.x = Math.abs(item.x) * 5;
             }
         });
     }
