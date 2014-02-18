@@ -13,7 +13,7 @@ var Tools = {
 var SETTINGS = {
     'bg_size': {'x': 1442, 'y': 1558},
     'ground_height': 70,
-    'ground_width': 888,
+    'ground_width': 1000,
     'ground_bottom_offset': 100,
     'world_speed': 6,
     'default_world_speed': 6,
@@ -83,8 +83,11 @@ function JetBuggy(){
         // that.shadow = new Shadow();
 
         game.load.spritesheet('car', 'images/buggy.png', 137, 70, 2);
-        game.load.image('bg', 'images/bg2.jpg');
-        game.load.image('ground', 'images/ground2.jpg');
+        // game.load.image('bg', 'images/bg3.gif');
+        game.load.image('ground', 'images/ground.gif');
+
+        game.load.image('real_ground', 'images/back_ground.gif');
+
         game.load.image('border', 'images/border.png');
         game.load.image('bomb', 'images/barel.png');
         game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
@@ -100,8 +103,8 @@ function JetBuggy(){
             bg_screen_diff = bg_screen_diff * -1;
         }
 
-        var bg = game.add.sprite(-2, bg_screen_diff, 'bg');
-        bg.body.moves = false;
+        // var bg = game.add.sprite(-2, bg_screen_diff, 'bg');
+        // bg.body.moves = false;
                 
         that.score_text = game.add.text(10, 10,
             '', {'font-size': 32, 'fill': '#ffffff'});
@@ -137,12 +140,7 @@ function JetBuggy(){
 
     that.update = function(){
 
-        that.ground_sprites.forEach(function(item){
-            item.x = item.x - SETTINGS.world_speed;
-            if (item.x < -1000){
-                item.x = game.width;
-            }
-        });
+        that.move_ground();
 
         that.move_border();
         that.evawars.move_evacuation_wars();
@@ -175,7 +173,6 @@ function JetBuggy(){
         
 
         game.physics.collide(that.car.sprite, that.real_ground);
-        // game.physics.collide(that.shadow.car, that.real_ground);
 
         game.physics.collide(that.car.sprite, that.bombs.ground_bombs, that.badaboom);
         game.physics.collide(that.car.sprite, that.evawars.evacuation_wars, that.badaboom);
@@ -248,17 +245,26 @@ function JetBuggy(){
     };
 
     that.create_ground = function(){
-        that.real_ground = game.add.sprite(0, that.sizer.convert_size(SETTINGS.real_ground_offset), 'ground');
-        that.real_ground.scale.x = 3;
+        that.real_ground = game.add.sprite(0, that.sizer.convert_size(SETTINGS.real_ground_offset), 'real_ground');
+        // that.real_ground.scale.x = 3;
         that.real_ground.body.moves = false;
         that.ground_sprites = game.add.group();
         // return;
 
-        for (var i = 0; i < 5; i++)
+        for (var i = 0; i < 3; i++)
         {
             ground_sprite = that.ground_sprites.create(i * SETTINGS.ground_width, that.sizer.convert_size(SETTINGS.visible_ground_offset), 'ground');
             ground_sprite.body.moves = false;
         }
+    }
+
+    that.move_ground = function(){
+        that.ground_sprites.forEach(function(item){
+            item.x = item.x - SETTINGS.world_speed;
+            if (item.x <= -1000){
+                item.x = game.width;
+            }
+        });
     }
 
     that.create_border_group = function(){
@@ -292,4 +298,6 @@ var game = new Phaser.Game(
         preload: jb.preload,
         create: jb.create,
         render: jb.render,
-        update: jb.update });
+        update: jb.update },
+        true,
+        false);

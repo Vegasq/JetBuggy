@@ -34,9 +34,9 @@ function Car(main){
     }
 
     that.car_update = function(){
-        // if (that.car.y > that.sizer.convert_size(SETTINGS.ground_offset) - that.car.height){
-        //     that.car.y = that.sizer.convert_size(SETTINGS.ground_offset) - that.car.height;
-        // }
+        if (that.sprite.y > that.main.sizer.convert_size(SETTINGS.ground_offset) - that.sprite.height){
+            that.sprite.y = that.main.sizer.convert_size(SETTINGS.ground_offset) - that.sprite.height;
+        }
 
         if(that.sprite.body.velocity.y < -1){
             that.sprite.angle = that.sprite.body.velocity.y / 20;
