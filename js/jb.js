@@ -94,6 +94,7 @@ function JetBuggy(){
         that.car = new Car(that);
         that.ground = new Ground(that);
         that.borders = new Borders(that);
+        that.jump_button = new JumpButton(that);
 
         // that.jumplog = new JumpLog(that);
         // that.shadow = new Shadow();
@@ -102,6 +103,7 @@ function JetBuggy(){
         game.load.image('ground', 'images/ground.gif');
         game.load.image('real_ground', 'images/back_ground.gif');
         game.load.image('border', 'images/border.png');
+        game.load.spritesheet('jump_btn', 'images/jump.png', 100, 100, 2);
         game.load.image('bomb', 'images/brickwall.jpg');
         game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
         game.load.spritesheet('boom','images/boom.png',100, 100, 48);
@@ -114,9 +116,8 @@ function JetBuggy(){
         }
     };
 
+
     that.create_bg = function(){
-
-
         var half_height = game.height / 2;
         var half_bg = SETTINGS.bg_size.y / 2;
         var y = half_height - half_bg;
@@ -159,6 +160,8 @@ function JetBuggy(){
         that.car.create();
 
         that.create_menu_button();
+        that.jump_button.create();
+
 
         document.addEventListener('touchstart', that.car.jump, false);
         document.addEventListener('mousedown', that.car.jump, false);
@@ -240,7 +243,9 @@ function JetBuggy(){
 
         that.car.hide();
 
+        that.jump_button.hide();
         that.play_button.visible = true;
+
     };
 
     that.button_click = function(){
@@ -265,6 +270,7 @@ function JetBuggy(){
         if (that.boom.animations.isFinished){
             that.boom.visible = false;
         }
+        that.jump_button.show();
 
         that.car.wake_up();
 
