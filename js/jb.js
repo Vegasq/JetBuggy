@@ -107,6 +107,7 @@ function JetBuggy(){
         game.load.image('top_bar', 'images/top_bar.png');
         game.load.spritesheet('jump_btn', 'images/jump.png', 100, 100, 2);
         game.load.image('bomb', 'images/brickwall.jpg');
+        game.load.image('logo', 'images/logo.png');
         game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
         game.load.spritesheet('boom','images/boom.png',100, 100, 48);
         game.load.spritesheet('subway','images/subway.png', 200, 80, 2);
@@ -126,6 +127,31 @@ function JetBuggy(){
 
         var bg = game.add.sprite(0, y, 'bg');
         bg.body.moves = false;
+    }
+
+    that.create_logo = function(){
+        var logo_width = 440;
+
+        function get_x(logo_w){
+            return (game.width / 2) - logo_w / 2;
+        }
+
+        that.logo = game.add.sprite(get_x(logo_width), 50, 'logo');
+        that.logo.body.moves = false;
+        that.hide_logo();
+
+        if(logo_width > game.width){
+            that.logo.scale.x = 0.5;
+            that.logo.scale.y = 0.5;
+            that.logo.x = get_x(220);
+        }
+
+    }
+    that.show_logo = function(){
+        that.logo.visible = true;
+    }
+    that.hide_logo = function(){
+        that.logo.visible = false;
     }
 
     that.create_top_bar = function(){
@@ -156,6 +182,9 @@ function JetBuggy(){
         that.create_bg();
         that.create_top_bar();
         that.score.create();
+
+        that.create_logo();
+        that.show_logo();
 
         that.borders.init();
         that.evawars.init();
@@ -253,6 +282,7 @@ function JetBuggy(){
         that.jump_button.hide();
         that.play_button.visible = true;
 
+        that.show_logo();
     };
 
     that.button_click = function(){
@@ -266,6 +296,8 @@ function JetBuggy(){
                 avaliable_cars.push(i);
             }
         }
+        that.hide_logo();
+
         var rand = avaliable_cars[Math.floor(Math.random() * avaliable_cars.length)];
         that.car.change(CarList[rand]);
 
