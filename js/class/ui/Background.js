@@ -3,6 +3,7 @@ function Background(){
     var that = this;
 
     that.create = function(){
+        // return;
         var half_height = game.height / 2;
         var half_bg = SETTINGS.bg_size.y / 2;
         var y = half_height - half_bg;

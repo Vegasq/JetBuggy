@@ -51,26 +51,33 @@ function JetBuggy(){
         that.jump_button = new JumpButton(that);
         that.bg = new Background();
         that.top_bar = new TopBar();
+        that.play_button = new PlayButton(that);
 
         that.car = new Car(that);
 
         // obj.create() will be called from JetBuggy.create()
+
         that.to_be_called_at_create = [
-            that.bg,
-            that.top_bar,
-            that.score,
+            that.play_button,
+
+            that.walls,
+            that.warnings,
+            that.enemies_master,
+            that.jump_button,
             that.logo,
+
+            that.score,
+            that.top_bar,
+
             that.car,
-            that.jump_button
+
+            that.borders,
+            that.ground,
+            that.bg,
+
+
         ];
 
-        // obj.init() will be called from JetBuggy.create()
-        that.to_be_inited_at_create = [
-            that.borders,
-            that.warnings,
-            that.walls,
-            that.ground,
-        ];
     }
 
     that.preload = function(){
@@ -86,55 +93,52 @@ function JetBuggy(){
         that.boom.kill();
     }
 
-    that.create_menu_button = function(){
-        that.play_button = game.add.button(
-            game.world.centerX, game.world.centerY, 
-            'button',
-            that.button_click,
-            that, 2,1,0);
-        that.play_button.anchor.setTo(0.5, 0.5);
-
-        that.play_button.body.moves = false;
-    }
 
     that.create = function(){
+        that.game_status = that.STATUS.MENU;
+
         for (var i = that.to_be_called_at_create.length - 1; i >= 0; i--) {
             that.to_be_called_at_create[i]['create']();
         };
 
-        that.logo.show();
 
-        for (var i = that.to_be_inited_at_create.length - 1; i >= 0; i--) {
-            that.to_be_inited_at_create[i]['init']();
-        };
+        that.logo.show();
+        that.play_button.show();
 
         that.create_boom_animation();
-        that.create_menu_button();
 
         document.addEventListener('touchstart', that.car.jump, false);
         document.addEventListener('mousedown', that.car.jump, false);
+
+        game.physics.maxLevels = 0;
+        game.physics.maxObjects = 0;
+
+
     };
 
     that.update = function(){
         // Move decorations
         that.ground.move();
-        that.borders.move();
 
-        // Move barriers
-        that.warnings.move();
-        that.walls.move();
+        that.borders.move();
 
         // Try to create barrier
         that.enemies_master.try_create_barrier()
+        that.enemies_master.move();
 
         // ...
         that.car.update();
 
-        // Collides        
+        that.enemies_master.garbage_collector();
+
+        // Collides
         game.physics.collide(that.car.sprite, that.ground.real_ground);
-        game.physics.collide(that.car.sprite, that.walls.group, that.badaboom);
-        game.physics.collide(that.car.sprite, that.warnings.group, that.badaboom);
+        game.physics.collide(that.car.sprite, that.enemies_master.global_enemies_group, that.badaboom);
     };
+
+    that.set_collides = function(){
+        that.collides_setted = true;
+    }
 
     that.badaboom = function(a, b){
         if (a.alive !== true || b.alive !== true){
@@ -168,12 +172,14 @@ function JetBuggy(){
         that.car.hide();
 
         that.jump_button.hide();
-        that.play_button.visible = true;
+        that.play_button.show();
 
         that.logo.show();
     };
 
     that.button_click = function(){
+        that.enemies_master.destroy();
+
         var avaliable_cars = [];
         for (var i in CarList) {
             if(CarList.hasOwnProperty(i)){
@@ -187,12 +193,9 @@ function JetBuggy(){
 
         SETTINGS.world_speed = SETTINGS.default_world_speed;
 
-        that.warnings.destroy();
-        that.walls.destroy();
-
         that.enemies_master.reset_counter();
 
-        that.play_button.visible = false;
+        that.play_button.hide();
 
         that.score.show();
         that.score.reset();

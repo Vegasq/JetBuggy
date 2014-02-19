@@ -4,7 +4,7 @@ function Ground(main){
     var that = this;
     that.main = main;
 
-    that.init = function(){
+    that.create = function(){
         var ground_sprite;
 
         that.real_ground = game.add.sprite(0, that.main.sizer.convert_size(SETTINGS.real_ground_offset), 'real_ground');
@@ -48,12 +48,6 @@ function Ground(main){
     that.move = function(){
         that.ground_sprites.forEach(function(item){
             item.x = _move_get_x(item.x, SETTINGS.world_speed);
-            // if (item.x <= -1000){
-            //     var diff = Math.abs(item.x) - 1000;
-            //     item.x = (1000 * 2) - diff;
-            // } else {
-            //     item.x = item.x - SETTINGS.world_speed;
-            // }
         });
     }
 

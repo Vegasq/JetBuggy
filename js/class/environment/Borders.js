@@ -5,7 +5,7 @@ function Borders(main){
     that.main = main;
 
 
-    that.init = function(){
+    that.create = function(){
         that.border_group = game.add.group();
         // return;
         var count = (game.width / 30) + 1;

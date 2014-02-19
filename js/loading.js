@@ -11,6 +11,7 @@ var requires = [
     "class/ui/Score",
     "class/ui/Logo",
     "class/ui/TopBar",
+    "class/ui/PlayButton",
 
     "class/environment/Ground",
     "class/environment/Borders",
