@@ -1,12 +1,12 @@
-function Bombs(main){
+function Walls(main){
     "use strict";
 
     var that = this;
     that.main = main;
-    that.ground_bombs = NaN;
+    that.group = NaN;
 
     that.move = function(){
-        that.ground_bombs.forEach(function(item){
+        that.group.forEach(function(item){
             if(item.alive){
                 item.x = item.x - SETTINGS.world_speed;
                 if (item.x < 30 && item.was_checked !== true){
@@ -21,8 +21,8 @@ function Bombs(main){
 
     }
 
-    that.destroy_bombs = function(){
-            that.ground_bombs.forEach(function(item){
+    that.destroy = function(){
+            that.group.forEach(function(item){
                 if(item){
                     item.x = game.width;
                     item.kill();
@@ -36,10 +36,10 @@ function Bombs(main){
 
     that.init = function(){
         that.bomb_bank = [];
-        that.ground_bombs = game.add.group();
+        that.group = game.add.group();
     }
 
-    that.create_bomb = function(){
+    that.create = function(){
         if( that.bomb_bank.length > 3 ){
             for (var i = that.bomb_bank.length - 1; i >= 0; i--) {
                 if(that.bomb_bank[i].x < -10 || that.bomb_bank[i].alive === false){
@@ -54,8 +54,8 @@ function Bombs(main){
                 }
             };
         } else {
-            var bomb_sprite = that.ground_bombs.create(
-                Tools.screen_size()[0] + 100, that.main.sizer.convert_size(SETTINGS.visible_ground_offset), 'bomb');
+            var bomb_sprite = that.group.create(
+                game.width + 100, that.main.sizer.convert_size(SETTINGS.visible_ground_offset), 'bomb');
             bomb_sprite.was_checked = false;
             bomb_sprite.body.moves = false;
             bomb_sprite.body.allowGravity = false;
