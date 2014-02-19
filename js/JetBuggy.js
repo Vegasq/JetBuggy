@@ -6,7 +6,8 @@ function JetBuggy(){
     that.STATUS = {
         'MENU': 0,
         'GAME': 1,
-        'SCORE': 2
+        'SCORE': 2,
+        'SELECT_CAR': 3
     };
 
     that.game_status = that.STATUS.MENU;
@@ -22,6 +23,9 @@ function JetBuggy(){
         game.load.spritesheet('car_blue', 'images/buggy_blue.png', 144, 96, 1);
         game.load.spritesheet('jump_btn', 'images/jump.png', 100, 100, 2);
         game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
+
+        game.load.spritesheet('alpha_button','images/alpha_button.png', 402, 126, 2);
+
         game.load.spritesheet('subway','images/subway.png', 200, 80, 2);
         game.load.spritesheet('car', 'images/buggy.png', 137, 70, 2);
         game.load.spritesheet('boom','images/boom.png',100, 100, 48);
@@ -51,15 +55,22 @@ function JetBuggy(){
         that.jump_button = new JumpButton(that);
         that.bg = new Background();
         that.top_bar = new TopBar();
-        that.play_button = new PlayButton(that);
+        
+        that.main_menu = new ButtonContainer(that);
+        that.play_button = new SomeButton(that);
+        that.main_menu.add(that.play_button);
+
+        that.car_selector_menu = new ButtonContainer(that);
+        that.select_car1 = new SomeButton(that);
+        that.select_car2 = new SomeButton(that);
+        that.car_selector_menu.add(that.select_car1);
+        that.car_selector_menu.add(that.select_car2);
 
         that.car = new Car(that);
 
         // obj.create() will be called from JetBuggy.create()
 
         that.to_be_called_at_create = [
-            that.play_button,
-
             that.walls,
             that.warnings,
             that.enemies_master,
@@ -93,9 +104,27 @@ function JetBuggy(){
         that.boom.kill();
     }
 
+    that.show_car_selector = function(){
+        that.game_status = that.STATUS.SELECT_CAR;
+
+        that.main_menu.hide();
+        that.car_selector_menu.show();
+
+
+    }
+
+    that.select_car1_callback = function(){
+        that.selected_car = 'dark_car';
+        that.button_click();
+    }
+    that.select_car2_callback = function(){
+        that.selected_car = 'blue_car';
+        that.button_click();
+    }
 
     that.create = function(){
         that.game_status = that.STATUS.MENU;
+        that.selected_car = 'dark_car';
 
         for (var i = that.to_be_called_at_create.length - 1; i >= 0; i--) {
             that.to_be_called_at_create[i]['create']();
@@ -103,7 +132,12 @@ function JetBuggy(){
 
 
         that.logo.show();
+
+        that.play_button.create(true, 'PLAY', 300, that.show_car_selector);
         that.play_button.show();
+        that.select_car1.create(false, 'car', 300, that.select_car1_callback);
+        that.select_car2.create(false, 'car_blue', 450, that.select_car2_callback);
+        that.car_selector_menu.hide();
 
         that.create_boom_animation();
 
@@ -178,24 +212,16 @@ function JetBuggy(){
     };
 
     that.button_click = function(){
+        console.log(that.selected_car);
         that.enemies_master.destroy();
+        that.car_selector_menu.hide();
+        that.main_menu.hide();
 
-        var avaliable_cars = [];
-        for (var i in CarList) {
-            if(CarList.hasOwnProperty(i)){
-                avaliable_cars.push(i);
-            }
-        }
-        that.logo.hide();
-
-        var rand = avaliable_cars[Math.floor(Math.random() * avaliable_cars.length)];
-        that.car.change(CarList[rand]);
+        that.car.change(CarList[that.selected_car]);
 
         SETTINGS.world_speed = SETTINGS.default_world_speed;
 
         that.enemies_master.reset_counter();
-
-        that.play_button.hide();
 
         that.score.show();
         that.score.reset();
