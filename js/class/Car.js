@@ -11,6 +11,7 @@ function Car(main){
 
     that.SPRITE_NAME = 'car';
     that.ANIMATION_ORDER = [0, 1];
+    that.ANIMATION_SPEED = 10;
     that.JUMP_POWER = -350;
 
     that.change = function(init_data){
@@ -22,6 +23,7 @@ function Car(main){
             that.ANIMATION_ORDER = init_data['animation_order'];
             that.SPRITE_NAME = init_data['sprite_name'];
             that.JUMP_POWER = init_data['jump_power'];
+            that.ANIMATION_SPEED = init_data['animation_speed'];
             that.create();
         }
     }
@@ -38,9 +40,9 @@ function Car(main){
         that.sprite.scale.y = that.SCALE;
         that.sprite.scale.x = that.SCALE;
         that.sprite.animations.add('drive', that.ANIMATION_ORDER,
-            10,
+            that.ANIMATION_SPEED,
             true);
-        that.sprite.animations.play('drive', 10, true);
+        that.sprite.animations.play('drive', that.ANIMATION_SPEED, true);
         that.frontier = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.sprite.height - (that.sprite.height/3);
 
     }

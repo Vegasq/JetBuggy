@@ -16,10 +16,12 @@ function Score(main){
 
     that.show = function(){
         that.score_text.visible = true;
+        that.main.top_bar.show();
     }
 
     that.hide = function(){
         that.score_text.visible = false;
+        that.main.top_bar.hide();
     }
 
     that.reset = function(){

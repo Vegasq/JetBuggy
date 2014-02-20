@@ -23,13 +23,11 @@ function EnemiesMaster(main){
         });
     }
 
-    that.garbage_collector = function(){
-        that.global_enemies_group.forEach(function(item){
-            if(item.alive === false && item.x < game.width){
-                item.x = game.width + 100;
-                item.kill();
-            }
-        });
+    that.garbage_collector = function(item){
+        if(item.alive === false && item.x < game.width){
+            item.x = game.width + 100;
+            item.kill();
+        }
     }
 
     that.try_create_barrier = function(){
@@ -55,20 +53,23 @@ function EnemiesMaster(main){
     that.move = function(){
         if(that.main.game_status === that.main.STATUS.GAME){
             that.global_enemies_group.forEach(function(item){
+                that.garbage_collector(item);
                 if(item.alive){
                     item.x = item.x - SETTINGS.world_speed;
 
-                    if (item.x < (item.width / 2) && item.was_checked !== true){
+                    if (item.x < that.main.car.sprite.x && item.was_checked !== true){
                         item.was_checked = true;
                         that.main.score.score += 1;
                         that.main.score.update();
                     }
 
                     if (item.x < (item.width * -1)){
+                        item.collideWorldBounds = false;
                         item.kill();
                     }
                 } else {
-                    item.x = item.x - SETTINGS.world_speed;
+                    // item.x = item.x - SETTINGS.world_speed;
+                    item.collideWorldBounds = false;
                     item.kill()
                 }
             });
