@@ -216,7 +216,7 @@ function JetBuggy(){
     };
 
     that.button_click = function(){
-        console.log(that.selected_car);
+        that.logo.hide();
         that.enemies_master.destroy();
         that.car_selector_menu.hide();
         that.main_menu.hide();
