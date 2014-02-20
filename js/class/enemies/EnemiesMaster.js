@@ -27,6 +27,7 @@ function EnemiesMaster(main){
         that.global_enemies_group.forEach(function(item){
             if(item.alive === false && item.x < game.width){
                 item.x = game.width + 100;
+                item.kill();
             }
         });
     }
@@ -40,10 +41,8 @@ function EnemiesMaster(main){
 
                 var rand = Math.random();
                 if(rand > 0.3){
-                    SETTINGS.frame_counter = 0;
                     that.main.walls.add_one();
                 } else {
-                    SETTINGS.frame_counter = 1;
                     that.main.warnings.add_one();
                 }
 

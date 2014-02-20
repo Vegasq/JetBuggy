@@ -124,12 +124,12 @@ function JetBuggy(){
 
         // Try to create barrier
         that.enemies_master.try_create_barrier()
+        that.enemies_master.garbage_collector();
         that.enemies_master.move();
 
         // ...
         that.car.update();
 
-        that.enemies_master.garbage_collector();
 
         // Collides
         game.physics.collide(that.car.sprite, that.ground.real_ground);

@@ -40,14 +40,14 @@ function Walls(main){
     }
 
     that.add_one = function(){
+        add_one_wall:
         for (var i = that.bomb_bank.length - 1; i >= 0; i--) {
-            if(that.bomb_bank[i].x < -10 || that.bomb_bank[i].alive === false){
+            if(that.bomb_bank[i].x < (that.bomb_bank[i].width * -1) && that.bomb_bank[i].alive === false || that.bomb_bank[i].x > game.width && that.bomb_bank[i].alive === false){
                 that.bomb_bank[i].revive();
-                // that.bomb_bank[i].visible = true;
-
                 that.bomb_bank[i].x = game.width + 100;
                 that.bomb_bank[i].was_checked = false;
-                break;
+                that.bomb_bank[i].parent_class = "Walls";
+                break add_one_wall;
             }
         };
     }

@@ -32,6 +32,7 @@ function Warnings(main){
     }
 
     that.add_one = function(){
+        add_one_warn:
         for (var i = that.eva_bank.length - 1; i >= 0; i--) {
             if(that.eva_bank[i].x < (that.eva_bank[i].width * -1) && that.eva_bank[i].alive === false || that.eva_bank[i].x >= game.width && that.eva_bank[i].alive === false){
                 that.eva_bank[i].revive();
@@ -39,7 +40,8 @@ function Warnings(main){
 
                 that.eva_bank[i].x = game.width + 100;
                 that.eva_bank[i].was_checked = false;
-                break;
+                that.eva_bank[i].parent_class = "Warnings";
+                break add_one_warn;
             }
         };
 
