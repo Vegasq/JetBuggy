@@ -1,4 +1,4 @@
-var game;
+var game, jb;
 var requires = [
     "lib/phaser",
 
@@ -11,7 +11,8 @@ var requires = [
     "class/ui/Score",
     "class/ui/Logo",
     "class/ui/TopBar",
-    "class/ui/PlayButton",
+    "class/ui/SomeButton",
+    "class/ui/ButtonContainer",
 
     "class/environment/Ground",
     "class/environment/Borders",
@@ -28,7 +29,7 @@ var requires = [
 ];
 
 function game_init(Phaser){
-    var jb = new JetBuggy();
+    jb = new JetBuggy();
     game = new Phaser.Game(
         Tools.screen_size()[0],
         Tools.screen_size()[1],
