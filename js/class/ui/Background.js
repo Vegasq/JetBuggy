@@ -23,8 +23,8 @@ function Background(main){
            that.main.game_status === that.main.STATUS.MENU || 
            that.main.game_status === that.main.STATUS.SELECT_CAR
            ){
-            that.spriteA.x = that.spriteA.x - 1;
-            that.spriteB.x = that.spriteB.x - 1;
+            that.spriteA.x = that.spriteA.x - (SETTINGS.world_speed / 2);
+            that.spriteB.x = that.spriteB.x - (SETTINGS.world_speed / 2);
         }
 
         if(that.spriteA.x <= (that.spriteA.width * -1)){

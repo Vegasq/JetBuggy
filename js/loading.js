@@ -6,6 +6,7 @@ var requires = [
     "objects/Tools",
     "objects/CarList",
 
+    "class/ui/Assets",
     "class/ui/Background",
     "class/ui/JumpButton",
     "class/ui/Score",
@@ -22,6 +23,7 @@ var requires = [
     "class/enemies/Warnings",
 
     "class/tools/Sizer",
+    "class/tools/MoveTimer",
     "class/Car",
 
 

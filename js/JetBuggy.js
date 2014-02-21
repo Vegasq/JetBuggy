@@ -13,32 +13,13 @@ function JetBuggy(){
     that.game_status = that.STATUS.MENU;
 
     that.assets_load = function(){
-        game.load.image('real_ground', 'images/back_ground.gif');
-        game.load.image('top_bar', 'images/top_bar.png');
-        game.load.image('bomb', 'images/brickwall.jpg');
-        game.load.image('ground', 'images/ground.gif');
-        game.load.image('border', 'images/border.png');
-        game.load.image('logo', 'images/logo.png');
 
-        game.load.spritesheet('car_blue', 'images/buggy_blue.png', 144, 96, 3);
-        game.load.spritesheet('jump_btn', 'images/jump.png', 100, 100, 2);
-        game.load.spritesheet('button','images/play_btn.png',300, 120, 1);
-
-        game.load.spritesheet('alpha_button','images/alpha_button.png', 402, 126, 2);
-
-        game.load.spritesheet('subway','images/subway.png', 200, 80, 2);
-        game.load.spritesheet('car', 'images/buggy.png', 137, 70, 2);
-        game.load.spritesheet('boom','images/boom.png',100, 100, 48);
-
-        if (game.width < 1150) {
-            game.load.image('bg', 'images/bg_1150.png');
-        } else {
-            game.load.image('bg', 'images/bg_2300.png');
-        }
     }
 
     that.init_game_objects = function(){
+        that.assets = new Assets();
         that.sizer = new Sizer();
+        that.move_timer = new MoveTimer(that);
 
         // Enemies
         that.enemies_master = new EnemiesMaster(that);
@@ -93,7 +74,7 @@ function JetBuggy(){
 
     that.preload = function(){
         that.init_game_objects();
-        that.assets_load();
+        that.assets.load();
     };
 
     that.create_boom_animation = function(){
@@ -149,10 +130,11 @@ function JetBuggy(){
         game.physics.maxLevels = 0;
         game.physics.maxObjects = 0;
 
-
+        that.move_timer.set_last_call_time();
     };
 
     that.update = function(){
+        SETTINGS.world_speed = that.move_timer.get_x();
         // Move decorations
         that.ground.move();
 

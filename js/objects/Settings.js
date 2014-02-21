@@ -3,8 +3,12 @@ var SETTINGS = {
     'ground_height': 70,
     'ground_width': 1000,
     'ground_bottom_offset': 100,
+
     'world_speed': 6,
     'default_world_speed': 6,
+
+    'speed_px': 1,
+    'speed_ms': 3,
 
     'real_ground_offset': 80,
     'visible_ground_offset': 79.9,
