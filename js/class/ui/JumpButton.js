@@ -5,6 +5,7 @@ function JumpButton(main){
 	that.jump_btn = false;
 
     that.create = function(){
+        // return;
         if(game.width > game.height){
             that.jump_btn = game.add.button(
                 game.width - 120, (game.height / 2) - 50, 'jump_btn', function(){}, that, 1,1,0);

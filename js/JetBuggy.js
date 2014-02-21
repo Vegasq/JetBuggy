@@ -36,6 +36,7 @@ function JetBuggy(){
         that.jump_button = new JumpButton(that);
         that.bg = new Background(that);
         that.top_bar = new TopBar();
+        that.fps = new FPS();
         
         that.main_menu = new ButtonContainer(that);
         that.play_button = new SomeButton(that);
@@ -52,6 +53,8 @@ function JetBuggy(){
         // obj.create() will be called from JetBuggy.create()
 
         that.to_be_called_at_create = [
+            that.ground,
+            that.fps,
             that.walls,
             that.warnings,
             that.enemies_master,
@@ -64,7 +67,6 @@ function JetBuggy(){
             that.car,
 
             that.borders,
-            that.ground,
             that.bg,
 
 
@@ -135,9 +137,9 @@ function JetBuggy(){
 
     that.update = function(){
         SETTINGS.world_speed = that.move_timer.get_x();
+
         // Move decorations
         that.ground.move();
-
         that.borders.move();
 
         // Try to create barrier
@@ -154,6 +156,7 @@ function JetBuggy(){
         // Collides
         game.physics.collide(that.car.sprite, that.ground.real_ground);
         game.physics.collide(that.car.sprite, that.enemies_master.global_enemies_group, that.badaboom);
+        that.fps.update();
     };
 
     that.set_collides = function(){

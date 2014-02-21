@@ -16,7 +16,7 @@ function Borders(main){
         };
     }
 
-    function _move_get_x(x, world_speed, game_width){
+    function _move_get_x(x, world_speed){
         "use asm";
 
         var x = x|0;
@@ -26,7 +26,7 @@ function Borders(main){
 
         result = x - world_speed;
         if (result < -30){
-            result = game_width;
+            result = game.width;
         }
 
         return result|0;
@@ -35,10 +35,6 @@ function Borders(main){
     that.move = function(){
         that.border_group.forEach(function(item){
             item.x = _move_get_x(item.x, SETTINGS.world_speed, game.width);
-            // item.x -= SETTINGS.world_speed;
-            // if (item.x < -30){
-            //     item.x = game.width;
-            // }
         });
     }
 }

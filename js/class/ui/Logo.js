@@ -5,6 +5,7 @@ function Logo(main){
     that.logo_width = 440;
 
     that.create = function(){
+        // return;
         function get_x(logo_w){
             return (game.width / 2) - logo_w / 2;
         }
@@ -21,9 +22,13 @@ function Logo(main){
 
     }
     that.show = function(){
-        that.logo.visible = true;
+        if(that.logo){
+            that.logo.visible = true;
+        }
     }
     that.hide = function(){
-        that.logo.visible = false;
+    if(that.logo){
+            that.logo.visible = false;
+        }
     }
 }

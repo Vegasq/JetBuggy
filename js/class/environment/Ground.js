@@ -6,17 +6,11 @@ function Ground(main){
 
     that.create = function(){
         var ground_sprite;
+        // return;
 
         that.real_ground = game.add.sprite(0, that.main.sizer.convert_size(SETTINGS.real_ground_offset), 'real_ground');
-        // that.real_ground.scale.x = 3;
-        // that.real_ground.body.moves = false;
         that.real_ground.body.immovable = true;
-
-        // that.real_ground.body.allowGravity = true;
-        // that.real_ground.body.gravity.y = 1000;
-
         that.ground_sprites = game.add.group();
-        // return;
 
         for (var i = 0; i < 3; i++)
         {

@@ -19,20 +19,21 @@ function Background(main){
     }
 
     that.move = function(){
-        if(that.main.game_status === that.main.STATUS.GAME || 
-           that.main.game_status === that.main.STATUS.MENU || 
-           that.main.game_status === that.main.STATUS.SELECT_CAR
-           ){
-            that.spriteA.x = that.spriteA.x - (SETTINGS.world_speed / 2);
-            that.spriteB.x = that.spriteB.x - (SETTINGS.world_speed / 2);
-        }
+        if(that.spriteA && that.spriteB){
+            if(that.main.game_status === that.main.STATUS.GAME || 
+               that.main.game_status === that.main.STATUS.MENU || 
+               that.main.game_status === that.main.STATUS.SELECT_CAR
+               ){
+                that.spriteA.x = that.spriteA.x - (SETTINGS.world_speed / 2);
+                that.spriteB.x = that.spriteB.x - (SETTINGS.world_speed / 2);
+            }
 
-        if(that.spriteA.x <= (that.spriteA.width * -1)){
-            that.spriteA.x = that.spriteB.x + that.spriteB.width;
+            if(that.spriteA.x <= (that.spriteA.width * -1)){
+                that.spriteA.x = that.spriteB.x + that.spriteB.width;
+            }
+            if(that.spriteB.x <= (that.spriteB.width * -1)){
+                that.spriteB.x = that.spriteA.x + that.spriteA.width;
+            }
         }
-        if(that.spriteB.x <= (that.spriteB.width * -1)){
-            that.spriteB.x = that.spriteA.x + that.spriteA.width;
-        }
-
     }
 }
