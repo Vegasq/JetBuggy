@@ -138,19 +138,22 @@ function JetBuggy(){
     that.update = function(){
         SETTINGS.world_speed = that.move_timer.get_x();
 
-        // Move decorations
-        that.ground.move();
-        that.borders.move();
+        if(SETTINGS.world_speed > 0){
+            // Move decorations
+            that.ground.move();
+            that.borders.move();
 
-        // Try to create barrier
-        that.enemies_master.try_create_barrier()
-        // that.enemies_master.garbage_collector();
-        that.enemies_master.move();
+            // Try to create barrier
+            that.enemies_master.try_create_barrier()
+            // that.enemies_master.garbage_collector();
+            that.enemies_master.move();
 
-        // ...
-        that.car.update();
+            // ...
+            that.car.update();
 
-        that.bg.move();
+            that.bg.move();            
+        }
+
 
 
         // Collides
