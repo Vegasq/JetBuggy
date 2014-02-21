@@ -6,7 +6,7 @@ function Warnings(main){
 	that.main = main;
 	that.group = NaN;
     that.animation_name = "subway";
-    that.total_units = 4;
+    that.total_units = 50;
 
     that.create = function(){
         that.eva_bank = [];
@@ -26,6 +26,7 @@ function Warnings(main){
                 bomb_sprite.animations.add(that.animation_name);
                 bomb_sprite.animations.play(that.animation_name, 10, true);
                 bomb_sprite.collideWorldBounds = true;
+                bomb_sprite.kill();
 
                 that.eva_bank.push(bomb_sprite);
             }

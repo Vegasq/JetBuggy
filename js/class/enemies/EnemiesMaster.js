@@ -2,6 +2,30 @@ function EnemiesMaster(main){
     var that = this;
     that.main = main;
 
+    that.total_enemies = 0;
+    that.total_enemies_checked = 0;
+
+    that.is_clean = function(){
+        console.log(that.total_enemies, that.total_enemies_checked);
+        if (that.total_enemies === that.total_enemies_checked){
+            return true;
+        }
+        return false;
+    }
+
+    that.clean = function(){
+        that.total_enemies = that.global_enemies_group._container.children.length;
+        that.total_enemies_checked = 0;
+
+        that.global_enemies_group.forEach(function(item){
+            if (item.x <= game.width){
+                item.x = game.width + 1;
+            } else {
+                that.total_enemies_checked += 1;
+            }
+        });
+    }
+
     that.create = function(){
         that.global_enemies_group = game.add.group();
     }
@@ -35,12 +59,15 @@ function EnemiesMaster(main){
             that.bomb_delay_counter += 1;
 
             if(that.bomb_delay_counter > that.bomb_delay) {
+                console.log('try_create_barrier');
                 that.bomb_delay_counter = 0;
 
                 var rand = Math.random();
                 if(rand > 0.3){
+                    console.log('create wall');
                     that.main.walls.add_one();
                 } else {
+                    console.log('create warn');
                     that.main.warnings.add_one();
                 }
 
@@ -51,7 +78,9 @@ function EnemiesMaster(main){
     }
 
     that.move = function(){
-        if(that.main.game_status === that.main.STATUS.GAME){
+        if(that.main.game_status === that.main.STATUS.GAME ||
+            that.main.game_status === that.main.STATUS.SELECT_CAR){
+
             that.global_enemies_group.forEach(function(item){
                 that.garbage_collector(item);
                 if(item.alive){

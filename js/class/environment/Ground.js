@@ -40,9 +40,15 @@ function Ground(main){
     }
 
     that.move = function(){
-        that.ground_sprites.forEach(function(item){
-            item.x = _move_get_x(item.x, SETTINGS.world_speed);
-        });
+        if(that.main.game_status === that.main.STATUS.GAME ||
+        that.main.game_status === that.main.STATUS.MENU ||
+        that.main.game_status === that.main.STATUS.SCORE ||
+        that.main.game_status === that.main.STATUS.SELECT_CAR){
+            that.ground_sprites.forEach(function(item){
+                item.x = _move_get_x(item.x, SETTINGS.world_speed);
+            });
+        }
+
     }
 
 }

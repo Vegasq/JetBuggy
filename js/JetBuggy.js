@@ -7,7 +7,8 @@ function JetBuggy(){
         'MENU': 0,
         'GAME': 1,
         'SCORE': 2,
-        'SELECT_CAR': 3
+        'SELECT_CAR': 3,
+        'CRASH': 4
     };
 
     that.game_status = that.STATUS.MENU;
@@ -180,12 +181,7 @@ function JetBuggy(){
             return;
         }
 
-
-        a.revive();
-        b.revive();
-
-
-        that.game_status = that.STATUS.SCORE;
+        that.game_status = that.STATUS.CRASH;
         SETTINGS.world_speed = 0;
 
         that.boom.revive();
@@ -203,9 +199,23 @@ function JetBuggy(){
         that.logo.show();
     };
 
+    // that.clicked = false;
     that.button_click = function(){
         that.logo.hide();
         that.enemies_master.destroy();
+
+        // if(that.clicked === false){
+        //     that.clicked = true;
+        //     that.enemies_master.clean();
+        // }
+
+        // if(that.enemies_master.is_clean() === false){
+        //     that.enemies_master.clean();
+        //     setTimeout(that.button_click, 500);
+        //     return;
+        // }
+        // that.clicked = false;
+
         that.car_selector_menu.hide();
         that.main_menu.hide();
 
@@ -225,6 +235,8 @@ function JetBuggy(){
         that.jump_button.show();
 
         that.car.wake_up();
+        
+
 
         function matrix(){
             that.game_status = that.STATUS.GAME;

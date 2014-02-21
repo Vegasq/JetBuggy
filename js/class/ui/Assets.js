@@ -21,10 +21,11 @@ function Assets(){
         game.load.spritesheet('car', that.folder + '/buggy.png', 137, 70, 2);
         game.load.spritesheet('boom',that.folder + '/boom.png',100, 100, 48);
 
-        if (game.width < 1150) {
-            game.load.image('bg', that.folder + '/bg_1150.png');
-        } else {
-            game.load.image('bg', that.folder + '/bg_2300.png');
-        }
+        // if (game.width < 1150) {
+        //     game.load.image('bg', that.folder + '/bg_1150.png');
+        // } else {
+        //     game.load.image('bg', that.folder + '/bg_2300.png');
+        // }
+        game.load.image('bg', that.folder + '/bg_1400.png');
     }
 }

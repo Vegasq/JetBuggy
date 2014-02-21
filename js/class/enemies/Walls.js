@@ -5,14 +5,15 @@ function Walls(main){
     that.class_name = "Walls";
     that.main = main;
     that.group = NaN;
+    that.total_units = 50;
 
     that.create = function(){
         that.bomb_bank = [];
 
-        if(that.bomb_bank.length !== 3){
+        if(that.bomb_bank.length !== that.total_units){
             var i = 0;
             var bomb_sprite;
-            while(i < 3){
+            while(i < that.total_units){
                 i += 1;
                 bomb_sprite = that.main.enemies_master.global_enemies_group.create(
                     game.width + 100,
@@ -34,6 +35,7 @@ function Walls(main){
 
                 bomb_sprite.height = bomb_sprite.height * height_dem;
                 bomb_sprite.y = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - bomb_sprite.height;
+                bomb_sprite.kill();
                 that.bomb_bank.push(bomb_sprite);
             }
         }

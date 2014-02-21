@@ -15,6 +15,6 @@ var CarList = {
 		'scale': 0.7,
 		'jump_power': -350,
 		'animation_order': [0,1],
-		'animation_speed': 60
+		'animation_speed': 15
 	}
 }
