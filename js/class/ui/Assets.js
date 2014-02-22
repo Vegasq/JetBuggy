@@ -26,6 +26,8 @@ function Assets(){
         // } else {
         //     game.load.image('bg', that.folder + '/bg_2300.png');
         // }
-        game.load.image('bg', that.folder + '/bg_1400.png');
+        game.load.image('bg0', that.folder + '/bg_1400_0.png');
+        game.load.image('bg1', that.folder + '/bg_1400_1.png');
+        game.load.image('bg2', that.folder + '/bg_1400_2.png');
     }
 }
