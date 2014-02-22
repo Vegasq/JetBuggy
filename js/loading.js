@@ -50,4 +50,4 @@ function game_init(Phaser){
     window.onresize = function(event) {document.location = document.location;};
 }
 
-require(requires, game_init);
+requirejs(requires, game_init);

@@ -2,8 +2,6 @@ function Background(main){
     "use strict";
     var that = this;
     that.main = main;
-    that.spriteA = false;
-    that.spriteB = false;
 
     that.bgs_info = {
         'bg2': {
