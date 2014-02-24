@@ -23,8 +23,6 @@ function Ground(main){
     }
 
     function _move_get_x(x, world_speed){
-        "use asm";
-
         var abs = Math.abs;
         var x = x|0;
         var world_speed = world_speed|0;

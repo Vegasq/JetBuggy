@@ -4,9 +4,12 @@ function EnemiesMaster(main){
 
     that.total_enemies = 0;
     that.total_enemies_checked = 0;
+    that.active_enemies = 0;
+    that.bomb_delay = 99;
+    that.bomb_delay_counter = 99;
 
     that.is_clean = function(){
-        console.log(that.total_enemies, that.total_enemies_checked);
+        
         if (that.total_enemies === that.total_enemies_checked){
             return true;
         }
@@ -30,8 +33,6 @@ function EnemiesMaster(main){
         that.global_enemies_group = game.add.group();
     }
 
-    that.bomb_delay = 99;
-    that.bomb_delay_counter = 99;
 
     that.reset_counter = function(){
         that.bomb_delay = 99;
@@ -39,6 +40,7 @@ function EnemiesMaster(main){
     }
 
     that.destroy = function(){
+        that.active_enemies = 0;
         that.global_enemies_group.forEach(function(item){
             if(item){
                 item.x = game.width;
@@ -59,15 +61,14 @@ function EnemiesMaster(main){
             that.bomb_delay_counter += 1;
 
             if(that.bomb_delay_counter > that.bomb_delay) {
-                console.log('try_create_barrier');
                 that.bomb_delay_counter = 0;
 
                 var rand = Math.random();
                 if(rand > 0.3){
-                    console.log('create wall');
+                    that.active_enemies += 1;
                     that.main.walls.add_one();
                 } else {
-                    console.log('create warn');
+                    that.active_enemies += 1;
                     that.main.warnings.add_one();
                 }
 
@@ -77,7 +78,12 @@ function EnemiesMaster(main){
         }
     }
 
+    that.get_enemies_count = function(){
+        return that.active_enemies;
+    }
+
     that.move = function(){
+
         if(that.main.game_status === that.main.STATUS.GAME ||
             that.main.game_status === that.main.STATUS.SELECT_CAR){
 
@@ -93,6 +99,8 @@ function EnemiesMaster(main){
                     }
 
                     if (item.x < (item.width * -1)){
+                        that.active_enemies -= 1;
+
                         item.collideWorldBounds = false;
                         item.kill();
                     }

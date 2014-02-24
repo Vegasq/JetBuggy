@@ -7,6 +7,7 @@ function Assets(){
         game.load.image('real_ground', that.folder + '/back_ground.gif');
         game.load.image('top_bar', that.folder + '/top_bar.png');
         game.load.image('bomb', that.folder + '/brickwall.jpg');
+        game.load.image('newbomb', that.folder + '/bomb.png');
         game.load.image('ground', that.folder + '/ground.gif');
         game.load.image('border', that.folder + '/border.png');
         game.load.image('logo', that.folder + '/logo.png');

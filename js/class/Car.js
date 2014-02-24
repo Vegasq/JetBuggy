@@ -59,6 +59,10 @@ function Car(main){
     that.jump = function(){
         var is_game = that.main.game_status === that.main.STATUS.GAME;
 
+        if(that.main.bomb.is_bomb_clicked()){
+            return;
+        }
+
         if (is_game && that.sprite.y > that.frontier){
             that.sprite.body.velocity.y = that.JUMP_POWER;
         }

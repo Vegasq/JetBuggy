@@ -16,12 +16,9 @@ function Borders(main){
         };
     }
 
-    function _move_get_x(x, world_speed){
-        "use asm";
-
-        var x = x|0;
-        var world_speed = world_speed|0;
-        var game_width = game_width|0;
+    function _move_get_x(x_pos, world_speed_val){
+        var x = x_pos|0;
+        var world_speed = world_speed_val|0;
         var result = 0;
 
         result = x - world_speed;

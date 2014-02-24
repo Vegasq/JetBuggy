@@ -22,9 +22,11 @@ var requires = [
     "class/enemies/EnemiesMaster",
     "class/enemies/Walls",
     "class/enemies/Warnings",
+    "class/enemies/Bomb",
 
     "class/tools/Sizer",
     "class/tools/MoveTimer",
+    "class/tools/Gameplay",
     "class/Car",
 
 
