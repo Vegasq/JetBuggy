@@ -51,7 +51,7 @@ function Walls(main){
                 that.bomb_bank[i].x >= game.width && that.bomb_bank[i].alive === false){
                 
                 that.bomb_bank[i].revive();
-                that.bomb_bank[i].x = game.width + 100;
+                that.bomb_bank[i].x = game.width + 100 - (that.bomb_bank[i].width/2);
                 that.bomb_bank[i].was_checked = false;
                 that.bomb_bank[i].parent_class = "Walls";
                 that.bomb_bank[i].collideWorldBounds = true;

@@ -8,9 +8,9 @@ function Borders(main){
     that.create = function(){
         that.border_group = game.add.group();
         // return;
-        var count = (game.width / 30) + 1;
+        var count = (game.width / 900) + 1;
         for (var i = 0; count > i; i++) {
-            var border = that.border_group.create(i * 30, -30, 'border');
+            var border = that.border_group.create(i * 900, -900, 'border');
             border.y = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - border.height;
             border.body.moves = false;
         };
@@ -22,7 +22,7 @@ function Borders(main){
         var result = 0;
 
         result = x - world_speed;
-        if (result < -30){
+        if (result < -900){
             result = game.width;
         }
 
