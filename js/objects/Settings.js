@@ -1,5 +1,8 @@
 var SETTINGS = {
-    'bg_size': {'x': 1440, 'y': 850},
+    'background': true,
+    'fps': true,
+
+    // 'bg_size': {'x': 1440, 'y': 850},
     'ground_height': 70,
     'ground_width': 1000,
     'ground_bottom_offset': 100,

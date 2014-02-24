@@ -21,11 +21,13 @@ function JetBuggy(){
         that.assets = new Assets();
         that.sizer = new Sizer();
         that.move_timer = new MoveTimer(that);
+        that.gameplay = new Gameplay(that);
 
         // Enemies
         that.enemies_master = new EnemiesMaster(that);
         that.warnings = new Warnings(that);
         that.walls = new Walls(that);
+        that.bomb = new Bomb(that);
 
         // Environment
         that.ground = new Ground(that);
@@ -56,6 +58,7 @@ function JetBuggy(){
         that.to_be_called_at_create = [
             that.ground,
             that.fps,
+            that.bomb,
             that.walls,
             that.warnings,
             that.enemies_master,
@@ -139,28 +142,12 @@ function JetBuggy(){
     that.update = function(){
         SETTINGS.world_speed = that.move_timer.get_x();
 
-        if(SETTINGS.world_speed > 0){
-            // Move decorations
-            that.ground.move();
-            that.borders.move();
-
-            // Try to create barrier
-            that.enemies_master.try_create_barrier()
-            // that.enemies_master.garbage_collector();
-            that.enemies_master.move();
-
-            // ...
-            that.car.update();
-
-            that.bg.move();            
-        }
-
-
+        that.gameplay.update();
 
         // Collides
         game.physics.collide(that.car.sprite, that.ground.real_ground);
         game.physics.collide(that.car.sprite, that.enemies_master.global_enemies_group, that.badaboom);
-        that.fps.update();
+        game.physics.collide(that.ground.real_ground, that.bomb.bombs, that.badaboom);
     };
 
     that.set_collides = function(){
@@ -175,11 +162,13 @@ function JetBuggy(){
 
         if(Math.abs(a.x - b.x) > 200){
             console.log('FIXME impossible collision!');
-            b.x = game.width;
+            // b.x = game.width;
             // sometimes game have not enough time to remove object from
             // collision manager. And pklayer could smash into invisiablwe wall.
-            return;
+            // return;
         }
+
+        that.bomb.destroy();
 
         that.game_status = that.STATUS.CRASH;
         SETTINGS.world_speed = 0;
