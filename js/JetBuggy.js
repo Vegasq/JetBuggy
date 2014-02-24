@@ -56,13 +56,14 @@ function JetBuggy(){
         // obj.create() will be called from JetBuggy.create()
 
         that.to_be_called_at_create = [
+            that.jump_button,
+
             that.ground,
             that.fps,
             that.bomb,
             that.walls,
             that.warnings,
             that.enemies_master,
-            that.jump_button,
             that.logo,
 
             that.score,
@@ -140,6 +141,10 @@ function JetBuggy(){
     };
 
     that.update = function(){
+        if(that.fps.is_fps_ok() === false){
+            that.bg.slowdown();
+        }
+
         SETTINGS.world_speed = that.move_timer.get_x();
 
         that.gameplay.update();

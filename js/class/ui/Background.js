@@ -3,6 +3,7 @@ function Background(main){
     var that = this;
     that.main = main;
 
+
     that.bgs_info = {
         'bg2': {
             'sprites': [],
@@ -17,6 +18,12 @@ function Background(main){
             'speed': SETTINGS.world_speed / 2
         }
     };
+
+    that.slowdown = function(){
+        delete that.bgs_info['bg2'];
+        delete that.bgs_info['bg1'];
+        delete that.bgs_info['bg0'];
+    }
 
     that.create_bgs = function(){
         var ground_size = game.height - that.main.sizer.convert_size(SETTINGS.visible_ground_offset);
