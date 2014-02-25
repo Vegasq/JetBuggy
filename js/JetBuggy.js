@@ -170,20 +170,11 @@ function JetBuggy(){
     }
 
     that.badaboom = function(a, b){
-        if (a.alive !== true || b.alive !== true){
-            console.log('FIXME two dead guys couldnt collide!');
-            return;
-        }
-
-        if(Math.abs(a.x - b.x) > 200){
-            console.log('FIXME impossible collision!');
-            // b.x = game.width;
-            // sometimes game have not enough time to remove object from
-            // collision manager. And pklayer could smash into invisiablwe wall.
-            // return;
-        }
+        b.x = game.width;
+        b.is_active = false;
 
         that.bomb.destroy();
+        that.gameplay.reset();
 
         that.game_status = that.STATUS.CRASH;
         SETTINGS.world_speed = 0;
@@ -206,7 +197,7 @@ function JetBuggy(){
     // that.clicked = false;
     that.button_click = function(){
         that.logo.hide();
-        that.enemies_master.destroy();
+        that.enemies_master.clean();
 
         // if(that.clicked === false){
         //     that.clicked = true;

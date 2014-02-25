@@ -34,23 +34,40 @@ var requires = [
 ];
 
 function game_init(Phaser){
-    pha = Phaser;
-    jb = new JetBuggy();
-    // Phaser.AUTO Phaser.WEBGL Phaser.CANVAS Phaser.HEADLESS
-
-    var screenPPI = document.getElementById('ppitest').offsetWidth;
-    var inch = Tools.screen_size()[0]/screenPPI;
-    var multiplme = 1;
-
-    if(inch < 24 && inch > 10){
-        multiplme = 1;
-    } else if(inch <= 10 && inch < 5){
-        multiplme = 1.7;
-    } else if(inch <= 5){
-        multiplme = 2.3;
+    if(Phaser){
+        pha = Phaser;
     }
 
-    console.log(multiplme);
+    var inch_meter = document.createElement('div');
+    inch_meter.setAttribute('style', 'width:1in;visible:hidden;padding:0px');
+    document.getElementsByTagName('body')[0].appendChild(inch_meter);
+
+    var screenPPI = inch_meter.offsetWidth;
+
+    jb = new JetBuggy();
+
+    var inch = parseInt(Tools.screen_size()[0]/screenPPI, 10);
+
+    function get_m(i){
+        if(i >= 17){
+            return 1;
+        }
+
+        if (i >= 12){
+            return 1.1;
+        }
+
+        if (i >= 9){
+            return 1.2;
+        }
+
+        if (i >= 6){
+            return 1.3;
+        }
+
+        return 1.4;
+    }
+    var multiplme = get_m(inch);
 
     game = new Phaser.Game(
         Tools.screen_size()[0] *multiplme,
