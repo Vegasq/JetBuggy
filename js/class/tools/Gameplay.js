@@ -13,6 +13,15 @@ function Gameplay(main){
     that.current_often_step = 0;
     that.current_rand = 0;
 
+    that.reset = function(){
+        that.selected_type = 'jump';
+        that.event_finished = true;
+        that.bombs_are_dropped = false;
+
+        that.current_often_step = 0;
+        that.current_rand = 0;
+    }
+
     that.try_autho_change = function(){
         if(that.current_often_step === 100){
             that.current_often_step = 0;

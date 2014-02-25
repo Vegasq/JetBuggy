@@ -9,7 +9,6 @@ function EnemiesMaster(main){
     that.bomb_delay_counter = 99;
 
     that.is_clean = function(){
-        
         if (that.total_enemies === that.total_enemies_checked){
             return true;
         }
@@ -17,15 +16,12 @@ function EnemiesMaster(main){
     }
 
     that.clean = function(){
-        that.total_enemies = that.global_enemies_group._container.children.length;
+        that.total_enemies = that.global_enemies_group.total;
         that.total_enemies_checked = 0;
 
         that.global_enemies_group.forEach(function(item){
-            if (item.x <= game.width){
-                item.x = game.width + 1;
-            } else {
-                that.total_enemies_checked += 1;
-            }
+            item.x = game.width;
+            item.is_active = false;
         });
     }
 
@@ -40,20 +36,22 @@ function EnemiesMaster(main){
     }
 
     that.destroy = function(){
-        that.active_enemies = 0;
-        that.global_enemies_group.forEach(function(item){
-            if(item){
-                item.x = game.width;
-                item.kill();
-            }
-        });
+        // console.log('destroy');
+        // that.active_enemies = 0;
+        // that.global_enemies_group.forEach(function(item){
+        //     if(item){
+        //         item.x = game.width;
+        //         item.kill();
+        //     }
+        // });
     }
 
     that.garbage_collector = function(item){
-        if(item.alive === false && item.x < game.width){
-            item.x = game.width + 100;
-            item.kill();
-        }
+        // console.log('garbage_collector');
+        // if(item.alive === false && item.x < game.width){
+        //     item.x = game.width + 100;
+        //     item.kill();
+        // }
     }
 
     that.try_create_barrier = function(){
@@ -88,8 +86,8 @@ function EnemiesMaster(main){
             that.main.game_status === that.main.STATUS.SELECT_CAR){
 
             that.global_enemies_group.forEach(function(item){
-                that.garbage_collector(item);
-                if(item.alive){
+                // that.garbage_collector(item);
+                if(item.is_active){
                     item.x = item.x - SETTINGS.world_speed;
 
                     if (item.x < that.main.car.sprite.x && item.was_checked !== true){
@@ -98,16 +96,18 @@ function EnemiesMaster(main){
                         that.main.score.update();
                     }
 
-                    if (item.x < (item.width * -1)){
+                    if (item.x <= (item.width * -1)){
                         that.active_enemies -= 1;
+                        item.x = game.width;
+                        item.is_active = false;
 
-                        item.collideWorldBounds = false;
-                        item.kill();
+                        // item.collideWorldBounds = false;
+                        // item.kill();
                     }
-                } else {
-                    // item.x = item.x - SETTINGS.world_speed;
-                    item.collideWorldBounds = false;
-                    item.kill()
+                // } else {
+                //     // item.x = item.x - SETTINGS.world_speed;
+                //     item.collideWorldBounds = false;
+                //     item.kill()
                 }
             });
         }

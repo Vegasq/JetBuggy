@@ -6,7 +6,7 @@ function Warnings(main){
 	that.main = main;
 	that.group = NaN;
     that.animation_name = "subway";
-    that.total_units = 50;
+    that.total_units = 4;
 
     that.create = function(){
         that.eva_bank = [];
@@ -19,14 +19,16 @@ function Warnings(main){
                     that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - that.main.car.sprite.height * 2,
                     that.animation_name);
                 bomb_sprite.was_checked = false;
+                bomb_sprite.is_active = false;
+
                 bomb_sprite.body.moves = false;
                 bomb_sprite.body.allowGravity = false;
                 // bomb_sprite.visible = false;
                 bomb_sprite.y = bomb_sprite.y - bomb_sprite.height;
+                bomb_sprite.x = game.width;
+
                 bomb_sprite.animations.add(that.animation_name);
                 bomb_sprite.animations.play(that.animation_name, 10, true);
-                bomb_sprite.collideWorldBounds = false;
-                bomb_sprite.kill();
 
                 that.eva_bank.push(bomb_sprite);
             }
@@ -36,8 +38,10 @@ function Warnings(main){
     that.add_one = function(){
         add_one_warn:
         for (var i = that.eva_bank.length - 1; i >= 0; i--) {
-            if(that.eva_bank[i].x < (that.eva_bank[i].width * -1) && that.eva_bank[i].alive === false || that.eva_bank[i].x >= game.width && that.eva_bank[i].alive === false){
-                that.eva_bank[i].revive();
+            if(
+                that.eva_bank[i].is_active === false
+            ){
+                that.eva_bank[i].is_active = true;
                 that.eva_bank[i].x = game.width + 100 - (that.eva_bank[i].width/2);
                 that.eva_bank[i].was_checked = false;
                 that.eva_bank[i].parent_class = "Warnings";
