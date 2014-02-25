@@ -15,11 +15,20 @@ function Walls(main){
             var bomb_sprite;
             while(i < that.total_units){
                 i += 1;
-                bomb_sprite = that.main.enemies_master.global_enemies_group.create(
-                    game.width + 100,
-                    that.main.sizer.convert_size(SETTINGS.visible_ground_offset),
+                // bomb_sprite = that.main.enemies_master.global_enemies_group.create(
+                //     game.width + 100,
+                //     that.main.sizer.convert_size(SETTINGS.visible_ground_offset),
+                //     'bomb'
+                // );
+
+
+                bomb_sprite = game.add.tileSprite(
+                    0, 0,
+                    30,
+                    80,
                     'bomb'
                 );
+
                 bomb_sprite.was_checked = false;
 
                 // FIXME too much vars
@@ -38,6 +47,7 @@ function Walls(main){
                 bomb_sprite.height = bomb_sprite.height * height_dem;
                 bomb_sprite.y = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - bomb_sprite.height;
                 bomb_sprite.x = game.width;
+                that.main.enemies_master.global_enemies_group.add(bomb_sprite);
                 that.bomb_bank.push(bomb_sprite);
             }
         }
