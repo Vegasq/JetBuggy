@@ -34,11 +34,18 @@ var requires = [
 ];
 
 function game_init(Phaser){
-    pha = Phaser;
-    jb = new JetBuggy();
-    // Phaser.AUTO Phaser.WEBGL Phaser.CANVAS Phaser.HEADLESS
+    if(Phaser){
+        pha = Phaser;
+    }
 
-    var screenPPI = document.getElementById('ppitest').offsetWidth;
+    var inch_meter = document.createElement('div');
+    inch_meter.setAttribute('style', 'width:1in;visible:hidden;padding:0px');
+    document.getElementsByTagName('body')[0].appendChild(inch_meter);
+
+    var screenPPI = inch_meter.offsetWidth;
+
+    jb = new JetBuggy();
+
     var inch = Tools.screen_size()[0]/screenPPI;
     var multiplme = 1;
 
