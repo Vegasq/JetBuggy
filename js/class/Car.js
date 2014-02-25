@@ -10,7 +10,13 @@ function Car(main){
     that.SCALE = 0.7;
 
     that.SPRITE_NAME = 'car';
-    that.ANIMATION_ORDER = [0, 1];
+
+    if(SETTINGS.car_animation){
+        that.ANIMATION_ORDER = [0, 1];
+    } else {
+        that.ANIMATION_ORDER = [0];
+    }
+
     that.ANIMATION_SPEED = 10;
     that.JUMP_POWER = -350;
 
@@ -20,7 +26,11 @@ function Car(main){
             that.GRAVITY = init_data['gravity'];
             that.BOUNCE = init_data['bounce'];
             that.SCALE = init_data['scale'];
-            that.ANIMATION_ORDER = init_data['animation_order'];
+            if(SETTINGS.car_animation){
+                that.ANIMATION_ORDER = init_data['animation_order'];
+            } else {
+                that.ANIMATION_ORDER = [0];
+            }
             that.SPRITE_NAME = init_data['sprite_name'];
             that.JUMP_POWER = init_data['jump_power'];
             that.ANIMATION_SPEED = init_data['animation_speed'];

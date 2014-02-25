@@ -8,7 +8,7 @@ function Assets(){
         game.load.image('top_bar', that.folder + '/top_bar.png');
         game.load.image('bomb', that.folder + '/brickwall.jpg');
         game.load.image('newbomb', that.folder + '/bomb.png');
-        game.load.image('ground', that.folder + '/ground.gif');
+        game.load.image('ground', that.folder + '/ground.png');
         game.load.image('border', that.folder + '/border.png');
         game.load.image('logo', that.folder + '/logo.png');
 
@@ -25,6 +25,5 @@ function Assets(){
         game.load.image('bg0', that.folder + '/bg_1400_0.png');
         game.load.image('bg1', that.folder + '/bg_1400_1.png');
         game.load.image('bg2', that.folder + '/bg_1400_2.png');
-        game.load.image('bg', that.folder + '/bg_1400.png');
     }
 }

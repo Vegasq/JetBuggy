@@ -1,4 +1,4 @@
-var game, jb;
+var game, jb, pha;
 var requires = [
     "lib/phaser",
 
@@ -34,11 +34,27 @@ var requires = [
 ];
 
 function game_init(Phaser){
+    pha = Phaser;
     jb = new JetBuggy();
     // Phaser.AUTO Phaser.WEBGL Phaser.CANVAS Phaser.HEADLESS
+
+    var screenPPI = document.getElementById('ppitest').offsetWidth;
+    var inch = Tools.screen_size()[0]/screenPPI;
+    var multiplme = 1;
+
+    if(inch < 24 && inch > 10){
+        multiplme = 1;
+    } else if(inch <= 10 && inch < 5){
+        multiplme = 1.7;
+    } else if(inch <= 5){
+        multiplme = 2.3;
+    }
+
+    console.log(multiplme);
+
     game = new Phaser.Game(
-        Tools.screen_size()[0],
-        Tools.screen_size()[1],
+        Tools.screen_size()[0] *multiplme,
+        Tools.screen_size()[1] *multiplme,
         Phaser.CANVAS,
         'JetBuggy', { 
             preload: jb.preload,

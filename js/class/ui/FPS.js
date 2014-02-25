@@ -24,10 +24,14 @@ function FPS(){
     }
 
     that.is_fps_ok = function(){
-        if (that.stat < 120){
+        if (that.stat < 320){
             return true;
         }
-        if(that.mid > 50){
+        if (that.stat > 1000){
+            that.stat = 0;
+            return true;
+        }
+        if(that.mid > 24){
             return true;
         }
         return false;
