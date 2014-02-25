@@ -56,13 +56,14 @@ function JetBuggy(){
         // obj.create() will be called from JetBuggy.create()
 
         that.to_be_called_at_create = [
+            that.jump_button,
+
             that.ground,
             that.fps,
             that.bomb,
             that.walls,
             that.warnings,
             that.enemies_master,
-            that.jump_button,
             that.logo,
 
             that.score,
@@ -111,6 +112,11 @@ function JetBuggy(){
     }
 
     that.create = function(){
+        // pha.StageScaleMode.forceOrientation(false, true, 'blue_car');
+        game.stage.scaleMode = pha.StageScaleMode.EXACT_FIT;
+        game.stage.forcePortrait = true;
+        game.stage.scale.setScreenSize(true);
+
         that.game_status = that.STATUS.MENU;
         that.selected_car = 'dark_car';
 
@@ -140,6 +146,15 @@ function JetBuggy(){
     };
 
     that.update = function(){
+        // game.stage.scale.forceOrientation(false, true);
+        // game.stage.scale.startFullScreen(false);
+
+
+        // console.log(game.stage.scale.incorrectOrientation);
+        if(that.fps.is_fps_ok() === false){
+            that.bg.slowdown();
+        }
+
         SETTINGS.world_speed = that.move_timer.get_x();
 
         that.gameplay.update();

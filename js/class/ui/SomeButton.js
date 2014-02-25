@@ -48,7 +48,6 @@ function SomeButton(main){
             that.icon.body.moves = false;
 
         }
-        console.log(that.icon, that.button_text, that.button);
 
         // that.hide();
     }

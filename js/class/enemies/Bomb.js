@@ -43,7 +43,6 @@ function Bomb(main){
 	that.update = function(){
         that.bombs.forEach(function(item){
         	if(item.input.pointerDown(game.input.activePointer.id)){
-        		console.log(item);
         		if (item.already_calculated === false){
         			that.active_bombs -= 1;
 	        		item.already_calculated = true;

@@ -3,16 +3,18 @@ function Borders(main){
 
     var that = this;
     that.main = main;
+    that.border_list = [];
 
 
     that.create = function(){
-        that.border_group = game.add.group();
+        // that.border_group = game.add.group();
         // return;
-        var count = (game.width / 30) + 1;
+        var count = 1;
         for (var i = 0; count > i; i++) {
-            var border = that.border_group.create(i * 30, -30, 'border');
+            var border = game.add.tileSprite(i * 900, 900, game.width,  game.cache.getImage('border').height, 'border');
             border.y = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - border.height;
-            border.body.moves = false;
+            // border.body.moves = false;
+            that.border_list.push(border);
         };
     }
 
@@ -22,7 +24,7 @@ function Borders(main){
         var result = 0;
 
         result = x - world_speed;
-        if (result < -30){
+        if (result < -900){
             result = game.width;
         }
 
@@ -34,9 +36,9 @@ function Borders(main){
         that.main.game_status === that.main.STATUS.MENU ||
         that.main.game_status === that.main.STATUS.SCORE ||
         that.main.game_status === that.main.STATUS.SELECT_CAR){
-            that.border_group.forEach(function(item){
-                item.x = _move_get_x(item.x, SETTINGS.world_speed, game.width);
-            });
+            for (var i = that.border_list.length - 1; i >= 0; i--) {
+                that.border_list[i].tilePosition.x -= SETTINGS.world_speed;
+            };
         }
 
 

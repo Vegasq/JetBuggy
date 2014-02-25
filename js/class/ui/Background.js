@@ -3,6 +3,7 @@ function Background(main){
     var that = this;
     that.main = main;
 
+
     that.bgs_info = {
         'bg2': {
             'sprites': [],
@@ -18,22 +19,36 @@ function Background(main){
         }
     };
 
+    that.slowdown = function(){
+        delete that.bgs_info['bg2'];
+        delete that.bgs_info['bg1'];
+        delete that.bgs_info['bg0'];
+    }
+
     that.create_bgs = function(){
         var ground_size = game.height - that.main.sizer.convert_size(SETTINGS.visible_ground_offset);
 
         for (var i in that.bgs_info) {
             if(that.bgs_info.hasOwnProperty(i)){
-                var bg_part0 = game.add.sprite(0, 0, i);
-                var bg_part1 = game.add.sprite(bg_part0.width, 0, i);
-                var bg_part2 = game.add.sprite(bg_part0.width + bg_part0.width, 0, i);
+                var tile = game.add.tileSprite(
+                    0, 0,
+                    game.width,
+                    game.cache.getImage(i).height,
+                    i
+                );
+                tile.y = game.height - game.cache.getImage(i).height - (ground_size*0.01);
 
-                bg_part0.y = game.height - bg_part0.height - (ground_size*0.01);
-                bg_part1.y = game.height - bg_part1.height - (ground_size*0.01);
-                bg_part2.y = game.height - bg_part2.height - (ground_size*0.01);
+                // var bg_part0 = game.add.sprite(0, 0, i);
+                // var bg_part1 = game.add.sprite(bg_part0.width, 0, i);
+                // var bg_part2 = game.add.sprite(bg_part0.width + bg_part0.width, 0, i);
 
-                that.bgs_info[i].sprites.push(bg_part0);
-                that.bgs_info[i].sprites.push(bg_part1);
-                that.bgs_info[i].sprites.push(bg_part2);
+                // bg_part0.y = game.height - bg_part0.height - (ground_size*0.01);
+                // bg_part1.y = game.height - bg_part1.height - (ground_size*0.01);
+                // bg_part2.y = game.height - bg_part2.height - (ground_size*0.01);
+
+                // that.bgs_info[i].sprites.push(bg_part0);
+                // that.bgs_info[i].sprites.push(bg_part1);
+                that.bgs_info[i].sprites.push(tile);
             }
         };
     }
@@ -55,8 +70,8 @@ function Background(main){
         for (var i in that.bgs_info) {
             if(that.bgs_info.hasOwnProperty(i)){
                 for (var sprite in that.bgs_info[i].sprites) {
-                    that.bgs_info[i].sprites[sprite].x -= that.bgs_info[i].speed;
-                    that.bg_teleporter(that.bgs_info[i].sprites[sprite]);
+                    that.bgs_info[i].sprites[sprite].tilePosition.x -= that.bgs_info[i].speed;
+                    // that.bg_teleporter(that.bgs_info[i].sprites[sprite]);
                 };
 
             }

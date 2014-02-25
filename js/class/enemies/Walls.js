@@ -31,7 +31,7 @@ function Walls(main){
                 if(height_dem > 1){
                     height_dem = 1;
                 }
-                bomb_sprite.collideWorldBounds = true;
+                bomb_sprite.collideWorldBounds = false;
 
                 bomb_sprite.height = bomb_sprite.height * height_dem;
                 bomb_sprite.y = that.main.sizer.convert_size(SETTINGS.visible_ground_offset) - bomb_sprite.height;
@@ -51,10 +51,9 @@ function Walls(main){
                 that.bomb_bank[i].x >= game.width && that.bomb_bank[i].alive === false){
                 
                 that.bomb_bank[i].revive();
-                that.bomb_bank[i].x = game.width + 100;
+                that.bomb_bank[i].x = game.width + 100 - (that.bomb_bank[i].width/2);
                 that.bomb_bank[i].was_checked = false;
                 that.bomb_bank[i].parent_class = "Walls";
-                that.bomb_bank[i].collideWorldBounds = true;
                 break add_one_wall;
             }
         };

@@ -25,7 +25,7 @@ function Warnings(main){
                 bomb_sprite.y = bomb_sprite.y - bomb_sprite.height;
                 bomb_sprite.animations.add(that.animation_name);
                 bomb_sprite.animations.play(that.animation_name, 10, true);
-                bomb_sprite.collideWorldBounds = true;
+                bomb_sprite.collideWorldBounds = false;
                 bomb_sprite.kill();
 
                 that.eva_bank.push(bomb_sprite);
@@ -38,10 +38,9 @@ function Warnings(main){
         for (var i = that.eva_bank.length - 1; i >= 0; i--) {
             if(that.eva_bank[i].x < (that.eva_bank[i].width * -1) && that.eva_bank[i].alive === false || that.eva_bank[i].x >= game.width && that.eva_bank[i].alive === false){
                 that.eva_bank[i].revive();
-                that.eva_bank[i].x = game.width + 100;
+                that.eva_bank[i].x = game.width + 100 - (that.eva_bank[i].width/2);
                 that.eva_bank[i].was_checked = false;
                 that.eva_bank[i].parent_class = "Warnings";
-                that.eva_bank[i].collideWorldBounds = true;
                 break add_one_warn;
             }
         };
