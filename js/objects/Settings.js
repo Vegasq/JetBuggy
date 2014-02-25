@@ -1,7 +1,7 @@
 var SETTINGS = {
     'background': true,
     'fps': true,
-    'car_animation': false,
+    'car_animation': true,
 
     // 'bg_size': {'x': 1440, 'y': 850},
     'ground_height': 70,
