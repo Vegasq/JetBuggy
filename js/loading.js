@@ -46,12 +46,8 @@ function game_init(Phaser){
 
     jb = new JetBuggy();
 
-<<<<<<< HEAD
     var screenPPI = document.getElementById('ppitest').offsetWidth;
     var inch = parseInt(Tools.screen_size()[0]/screenPPI, 10);
-=======
-    var inch = Tools.screen_size()[0]/screenPPI;
->>>>>>> a7c4fd1ce4115a6a2e156964a71fab9fcb10bce4
     var multiplme = 1;
 
     function get_m(i){
