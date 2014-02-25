@@ -18,11 +18,28 @@ function EnemiesMaster(main){
     that.clean = function(){
         that.total_enemies = that.global_enemies_group.total;
         that.total_enemies_checked = 0;
+        that.active_enemies = 0;
 
         that.global_enemies_group.forEach(function(item){
             item.x = game.width;
             item.is_active = false;
         });
+    }
+
+    that.autofixer = function(){
+        var i = 0;
+        for (var i = that.global_enemies_group._container.children.length - 1; i >= 0; i--) {
+            var x = that.global_enemies_group._container.children[i].x;
+            var is_active = that.global_enemies_group._container.children[i].is_active;
+            if(is_active){
+                i += 1;
+            }
+        };
+        if (i === that.active_enemies){
+            // is ok
+        } else {
+            that.clean();
+        }
     }
 
     that.create = function(){
