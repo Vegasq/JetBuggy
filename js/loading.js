@@ -46,9 +46,7 @@ function game_init(Phaser){
 
     jb = new JetBuggy();
 
-    var screenPPI = document.getElementById('ppitest').offsetWidth;
     var inch = parseInt(Tools.screen_size()[0]/screenPPI, 10);
-    var multiplme = 1;
 
     function get_m(i){
         if(i >= 17){
@@ -69,7 +67,7 @@ function game_init(Phaser){
 
         return 1.4;
     }
-    multiplme = get_m(inch);
+    var multiplme = get_m(inch);
 
     game = new Phaser.Game(
         Tools.screen_size()[0] *multiplme,
