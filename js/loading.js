@@ -34,12 +34,24 @@ var requires = [
 ];
 
 function game_init(Phaser){
-    pha = Phaser;
-    jb = new JetBuggy();
-    // Phaser.AUTO Phaser.WEBGL Phaser.CANVAS Phaser.HEADLESS
+    if(Phaser){
+        pha = Phaser;
+    }
 
+    var inch_meter = document.createElement('div');
+    inch_meter.setAttribute('style', 'width:1in;visible:hidden;padding:0px');
+    document.getElementsByTagName('body')[0].appendChild(inch_meter);
+
+    var screenPPI = inch_meter.offsetWidth;
+
+    jb = new JetBuggy();
+
+<<<<<<< HEAD
     var screenPPI = document.getElementById('ppitest').offsetWidth;
     var inch = parseInt(Tools.screen_size()[0]/screenPPI, 10);
+=======
+    var inch = Tools.screen_size()[0]/screenPPI;
+>>>>>>> a7c4fd1ce4115a6a2e156964a71fab9fcb10bce4
     var multiplme = 1;
 
     function get_m(i){
