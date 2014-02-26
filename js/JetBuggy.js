@@ -170,6 +170,10 @@ function JetBuggy(){
     }
 
     that.badaboom = function(a, b){
+        if('vibrate' in navigator) {
+            navigator.vibrate(1000);
+        }
+
         b.x = game.width;
         b.is_active = false;
 
