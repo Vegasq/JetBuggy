@@ -1,4 +1,4 @@
-var game, jb, pha, p2;
+var game, jb, pha, p2, is_touch_device;
 var requires = [
     // "lib/p2.min",
     "lib/phaser1.1.6.min",
@@ -28,6 +28,7 @@ var requires = [
     "class/tools/Sizer",
     "class/tools/MoveTimer",
     "class/tools/Gameplay",
+    "class/tools/is_touch_device",
     "class/Car",
 
 
