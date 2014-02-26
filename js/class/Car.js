@@ -70,8 +70,7 @@ function Car(main){
     that.jump = function(){
         var is_game = that.main.game_status === that.main.STATUS.GAME;
 
-        if(that.main.bomb.is_bomb_clicked()){
-            console.log('bomb_clicked');
+        if(that.main.gameplay.is_possible_to_create_barrier() === false){
             return;
         }
 
