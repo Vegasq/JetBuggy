@@ -67,7 +67,9 @@ function Bomb(main){
             if(item.input.pointerDown(game.input.activePointer.id)){
                 if (item.already_calculated === false && item.alive){
                     that.main.play_boom_animation(item.x + 10, item.y + 10);
-
+                    if('vibrate' in navigator) {
+                        navigator.vibrate(1000);
+                    }
                     item.kill();
                     that.active_bombs -= 1;
                     item.already_calculated = true;
