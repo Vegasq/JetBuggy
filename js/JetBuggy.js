@@ -176,7 +176,6 @@ function JetBuggy(){
                 game.stage.scale.refresh();
             }
         });
-        that.play_button.show();
         that.select_car1.create(false, 'car', 150, that.select_car1_callback);
         that.select_car2.create(false, 'car_blue', 300, that.select_car2_callback);
         that.car_selector_menu.hide();
@@ -259,7 +258,7 @@ function JetBuggy(){
         that.car.hide();
 
         that.jump_button.hide();
-        that.play_button.show();
+        that.main_menu.show();
 
         that.logo.show();
     };
