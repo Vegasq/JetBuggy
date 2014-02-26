@@ -29,12 +29,17 @@ function EnemiesMaster(main){
     that.autofixer = function(){
         var count = 0;
         for (var i = that.global_enemies_group._container.children.length - 1; i >= 0; i--) {
-            var x = that.global_enemies_group._container.children[i].x;
+            var x1 = that.global_enemies_group._container.children[i].x - that.global_enemies_group._container.children[i].width;
+            var x2 = that.global_enemies_group._container.children[i].x;
             var is_active = that.global_enemies_group._container.children[i].is_active;
             if(is_active){
                 count += 1;
             }
         };
+        if(count > 0){
+            // fix false makable
+            return;
+        }
         if (count === that.active_enemies){
             // is ok
         } else {
