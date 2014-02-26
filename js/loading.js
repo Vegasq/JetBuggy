@@ -1,6 +1,7 @@
-var game, jb, pha;
+var game, jb, pha, p2;
 var requires = [
-    "lib/phaser",
+    // "lib/p2.min",
+    "lib/phaser1.1.6.min",
 
     "objects/Settings",
     "objects/Tools",

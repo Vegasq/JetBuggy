@@ -61,8 +61,8 @@ function JetBuggy(){
             that.ground,
             that.fps,
             that.bomb,
-            that.walls,
             that.warnings,
+            that.walls,
             that.enemies_master,
             that.logo,
 
