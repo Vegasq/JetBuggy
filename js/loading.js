@@ -1,4 +1,4 @@
-var game, jb, pha, p2, is_touch_device;
+var game, jb, pha, p2, is_touch_device, multiplme;
 var requires = [
     // "lib/p2.min",
     "lib/phaser1.1.6.min",
@@ -37,63 +37,58 @@ var requires = [
 
 requirejs(requires, libs_loaded);
 
-function go_fullscreen(){
-    if(document.readyState !== "complete"){
-        setTimeout(go_fullscreen, 100);
-        return;
-    }
-
-    if (screenfull.enabled) {
-        screenfull.request();
-    }
-
-    console.log('isFullscreen', screenfull.isFullscreen);
-    if(screenfull.isFullscreen === false){
-        setTimeout(go_fullscreen, 1000);
-        return;
-    }
-    game_init(pha);
+function screen_scaler(){
+    game.stage.scaleMode = pha.StageScaleMode.EXACT_FIT;
+    game.stage.forcePortrait = true;
+    game.stage.scale.setScreenSize(true);
 }
-
 
 function libs_loaded(Phaser){
     if(Phaser){
         pha = Phaser;
     }
-    go_fullscreen();
+    game_init(pha);
 }
 
-function game_init(Phaser){
+function get_m(i){
+    if(i >= 17){
+        return 1;
+    }
+
+    if (i >= 12){
+        return 1.1;
+    }
+
+    if (i >= 9){
+        return 1.2;
+    }
+
+    if (i >= 6){
+        return 1.3;
+    }
+
+    return 1.4;
+}
+
+function get_dpi(){
     var inch_meter = document.createElement('div');
     inch_meter.setAttribute('style', 'width:1in;visible:hidden;padding:0px');
     document.getElementsByTagName('body')[0].appendChild(inch_meter);
 
-    var screenPPI = inch_meter.offsetWidth;
+    return inch_meter.offsetWidth;
+}
 
+function dpi_to_inches(dpi){
+    return parseInt(Tools.screen_size()[0]/dpi, 10);
+}
+
+function game_init(Phaser){
+ 
     jb = new JetBuggy();
 
-    var inch = parseInt(Tools.screen_size()[0]/screenPPI, 10);
-
-    function get_m(i){
-        if(i >= 17){
-            return 1;
-        }
-
-        if (i >= 12){
-            return 1.1;
-        }
-
-        if (i >= 9){
-            return 1.2;
-        }
-
-        if (i >= 6){
-            return 1.3;
-        }
-
-        return 1.4;
-    }
-    var multiplme = get_m(inch);
+    var dpi = get_dpi();
+    var inch = dpi_to_inches(dpi);
+    multiplme = get_m(inch);
 
 
 
@@ -110,7 +105,25 @@ function game_init(Phaser){
         true,
         false
     );
-    window.onresize = function(event) {document.location = document.location;};
+    // window.onresize = function(event) {
+    //     var dpi = get_dpi();
+    //     var inch = dpi_to_inches(dpi);
+    //     multiplme = get_m(inch);
+
+
+    //     var height = Tools.screen_size()[1] *multiplme;
+    //     var width = Tools.screen_size()[0] *multiplme;
+            
+    //     game.width = width;
+    //     game.height = height;
+    //     game.stage.bounds.width = width;
+    //     game.stage.bounds.height = height;
+            
+    //     if (game.renderType === Phaser.WEBGL)
+    //     {
+    //         game.renderer.resize(width, height);
+    //     }
+    // };
 }
 
 

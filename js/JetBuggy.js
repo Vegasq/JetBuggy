@@ -43,7 +43,9 @@ function JetBuggy(){
         
         that.main_menu = new ButtonContainer(that);
         that.play_button = new SomeButton(that);
+        that.go_fullscreen = new SomeButton(that);
         that.main_menu.add(that.play_button);
+        that.main_menu.add(that.go_fullscreen);
 
         that.car_selector_menu = new ButtonContainer(that);
         that.select_car1 = new SomeButton(that);
@@ -129,11 +131,15 @@ function JetBuggy(){
         that.button_click();
     }
 
-    that.create = function(){
-        // pha.StageScaleMode.forceOrientation(false, true, 'blue_car');
+    that.screen_scaler = function(){
         game.stage.scaleMode = pha.StageScaleMode.EXACT_FIT;
         game.stage.forcePortrait = true;
         game.stage.scale.setScreenSize(true);
+    }
+
+    that.create = function(){
+        // pha.StageScaleMode.forceOrientation(false, true, 'blue_car');
+        that.screen_scaler();
 
         that.game_status = that.STATUS.MENU;
         that.selected_car = 'dark_car';
@@ -147,6 +153,29 @@ function JetBuggy(){
         that.score.hide();
 
         that.play_button.create(true, 'PLAY BETA', 300, that.show_car_selector);
+        that.go_fullscreen.create(true, 'FULLSCREEN', 450, function(){
+            if(game.stage.scale.isFullScreen){
+                game.stage.scale.stopFullScreen();
+                game.stage.width = Tools.screen_size()[0]  *multiplme;
+                game.stage.height = Tools.screen_size()[1] *multiplme;
+
+                game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
+                game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
+
+                game.stage.scale.setSize();
+            } else {
+                game.stage.fullScreenScaleMode = pha.StageScaleMode.EXACT_FIT;
+                game.stage.scale.startFullScreen();
+                game.stage.width = Tools.screen_size()[0]  *multiplme;
+                game.stage.height = Tools.screen_size()[1] *multiplme;
+
+                game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
+                game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
+
+                game.stage.scale.setSize();
+                game.stage.scale.refresh();
+            }
+        });
         that.play_button.show();
         that.select_car1.create(false, 'car', 150, that.select_car1_callback);
         that.select_car2.create(false, 'car_blue', 300, that.select_car2_callback);
@@ -164,11 +193,6 @@ function JetBuggy(){
     };
 
     that.update = function(){
-        // game.stage.scale.forceOrientation(false, true);
-        // game.stage.scale.startFullScreen(false);
-
-
-        // console.log(game.stage.scale.incorrectOrientation);
         if(that.fps.is_fps_ok() === false){
             that.bg.slowdown();
         }
