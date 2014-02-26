@@ -71,6 +71,18 @@ function game_init(Phaser){
     }
     var multiplme = get_m(inch);
 
+    function go_to_fs() {
+        var
+              el = document.documentElement
+            , rfs =
+                   el.requestFullScreen
+                || el.webkitRequestFullScreen
+                || el.mozRequestFullScreen
+        ;
+        rfs.call(el);
+    }
+    go_to_fs();
+
     game = new Phaser.Game(
         Tools.screen_size()[0] *multiplme,
         Tools.screen_size()[1] *multiplme,
