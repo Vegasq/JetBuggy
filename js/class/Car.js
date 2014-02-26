@@ -76,6 +76,9 @@ function Car(main){
         }
 
         if (is_game && that.sprite.y >= that.frontier){
+            if('vibrate' in navigator) {
+                navigator.vibrate(100);
+            }
             that.sprite.body.velocity.y = that.JUMP_POWER;
         }
     }
