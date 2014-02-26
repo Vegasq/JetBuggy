@@ -35,11 +35,35 @@ var requires = [
     "JetBuggy"
 ];
 
-function game_init(Phaser){
+requirejs(requires, libs_loaded);
+
+function go_fullscreen(){
+    if(document.readyState !== "complete"){
+        setTimeout(go_fullscreen, 100);
+        return;
+    }
+
+    if (screenfull.enabled) {
+        screenfull.request();
+    }
+
+    console.log('isFullscreen', screenfull.isFullscreen);
+    if(screenfull.isFullscreen === false){
+        setTimeout(go_fullscreen, 1000);
+        return;
+    }
+    game_init(pha);
+}
+
+
+function libs_loaded(Phaser){
     if(Phaser){
         pha = Phaser;
     }
+    go_fullscreen();
+}
 
+function game_init(Phaser){
     var inch_meter = document.createElement('div');
     inch_meter.setAttribute('style', 'width:1in;visible:hidden;padding:0px');
     document.getElementsByTagName('body')[0].appendChild(inch_meter);
@@ -71,17 +95,7 @@ function game_init(Phaser){
     }
     var multiplme = get_m(inch);
 
-    function go_to_fs() {
-        var
-              el = document.documentElement
-            , rfs =
-                   el.requestFullScreen
-                || el.webkitRequestFullScreen
-                || el.mozRequestFullScreen
-        ;
-        rfs.call(el);
-    }
-    go_to_fs();
+
 
     game = new Phaser.Game(
         Tools.screen_size()[0] *multiplme,
@@ -99,4 +113,4 @@ function game_init(Phaser){
     window.onresize = function(event) {document.location = document.location;};
 }
 
-requirejs(requires, game_init);
+
