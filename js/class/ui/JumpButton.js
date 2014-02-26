@@ -5,6 +5,9 @@ function JumpButton(main){
 	that.jump_btn = false;
 
     that.create = function(){
+        if(is_touch_device() === false){
+            return;
+        }
         // return;
         if(game.width > game.height){
             that.jump_btn = game.add.button(
@@ -18,10 +21,16 @@ function JumpButton(main){
     }
 
     that.show = function(){
+        if(is_touch_device() === false){
+            return;
+        }
     	that.jump_btn.visible = true;
     }
 
     that.hide = function(){
+        if(is_touch_device() === false){
+            return;
+        }
     	that.jump_btn.visible = false;
     }
 }

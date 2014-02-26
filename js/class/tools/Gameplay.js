@@ -26,10 +26,10 @@ function Gameplay(main){
         if(that.current_often_step === 100){
             that.current_often_step = 0;
             if(Math.random() > 0.9 && that.event_finished === true){
-                console.log('autochanger');
+                // console.log('autochanger');
                 if(that.selected_type === 'jump'){
                     that.select('bomb');
-                    console.log('change to bomb');
+                    // console.log('change to bomb');
                 } else if (that.selected_type === 'bomb') {
                     that.select('jump');
                 }

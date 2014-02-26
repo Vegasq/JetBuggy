@@ -43,7 +43,9 @@ function JetBuggy(){
         
         that.main_menu = new ButtonContainer(that);
         that.play_button = new SomeButton(that);
+        that.go_fullscreen = new SomeButton(that);
         that.main_menu.add(that.play_button);
+        that.main_menu.add(that.go_fullscreen);
 
         that.car_selector_menu = new ButtonContainer(that);
         that.select_car1 = new SomeButton(that);
@@ -85,11 +87,29 @@ function JetBuggy(){
     };
 
     that.create_boom_animation = function(){
-        that.boom = game.add.sprite(0, 0, 'boom');
-        that.boom.body.moves = false;
-        that.boom.animations.add('boom');
-        that.boom.visible = false;
-        that.boom.kill();
+        that.boom_animations = game.add.group();
+        var boom;
+        for (var i = 3; i >= 0; i--) {
+            boom = game.add.sprite(0, 0, 'boom');
+            boom.body.moves = false;
+            boom.animations.add('boom');
+            boom.visible = false;
+            boom.kill();
+            that.boom_animations.add(boom);
+            
+        };
+    }
+    that.play_boom_animation = function(x, y){
+        var boom;
+        boom = that.boom_animations.getFirstDead();
+        if(boom){
+            boom.revive();
+
+            boom.x = x;
+            boom.y = y;
+
+            boom.animations.play('boom', 30, false, true);            
+        }
     }
 
     that.show_car_selector = function(){
@@ -111,11 +131,15 @@ function JetBuggy(){
         that.button_click();
     }
 
-    that.create = function(){
-        // pha.StageScaleMode.forceOrientation(false, true, 'blue_car');
+    that.screen_scaler = function(){
         game.stage.scaleMode = pha.StageScaleMode.EXACT_FIT;
         game.stage.forcePortrait = true;
         game.stage.scale.setScreenSize(true);
+    }
+
+    that.create = function(){
+        // pha.StageScaleMode.forceOrientation(false, true, 'blue_car');
+        that.screen_scaler();
 
         that.game_status = that.STATUS.MENU;
         that.selected_car = 'dark_car';
@@ -128,7 +152,30 @@ function JetBuggy(){
         that.logo.show();
         that.score.hide();
 
-        that.play_button.create(true, 'PLAY', 300, that.show_car_selector);
+        that.play_button.create(true, 'PLAY BETA', 300, that.show_car_selector);
+        that.go_fullscreen.create(true, 'FULLSCREEN', 450, function(){
+            if(game.stage.scale.isFullScreen){
+                game.stage.scale.stopFullScreen();
+                game.stage.width = Tools.screen_size()[0]  *multiplme;
+                game.stage.height = Tools.screen_size()[1] *multiplme;
+
+                game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
+                game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
+
+                game.stage.scale.setSize();
+            } else {
+                game.stage.fullScreenScaleMode = pha.StageScaleMode.EXACT_FIT;
+                game.stage.scale.startFullScreen();
+                game.stage.width = Tools.screen_size()[0]  *multiplme;
+                game.stage.height = Tools.screen_size()[1] *multiplme;
+
+                game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
+                game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
+
+                game.stage.scale.setSize();
+                game.stage.scale.refresh();
+            }
+        });
         that.play_button.show();
         that.select_car1.create(false, 'car', 150, that.select_car1_callback);
         that.select_car2.create(false, 'car_blue', 300, that.select_car2_callback);
@@ -146,11 +193,6 @@ function JetBuggy(){
     };
 
     that.update = function(){
-        // game.stage.scale.forceOrientation(false, true);
-        // game.stage.scale.startFullScreen(false);
-
-
-        // console.log(game.stage.scale.incorrectOrientation);
         if(that.fps.is_fps_ok() === false){
             that.bg.slowdown();
         }
@@ -169,13 +211,37 @@ function JetBuggy(){
         that.collides_setted = true;
     }
 
+    that.is_ghost_bomb = function(bomb){
+        if(bomb.key === 'newbomb'){
+            if(bomb.y <= 100){
+                return true;
+            }
+        }
+        return false;
+    }
+
     that.badaboom = function(a, b){
+        if(b.alive === false){
+            return;
+        }
+        if(that.game_status !== that.STATUS.GAME){
+            return;
+        }
         if('vibrate' in navigator) {
             navigator.vibrate(1000);
         }
 
-        b.x = game.width;
-        b.is_active = false;
+        if(that.bomb.is_ghost_bomb(b)){
+            return;
+        }
+
+        if(b.key === 'newbomb'){
+            b.y = -130;
+            b.kill();
+        } else {
+            b.x = game.width;
+            b.is_active = false;            
+        }
 
         that.bomb.destroy();
         that.gameplay.reset();
@@ -183,12 +249,12 @@ function JetBuggy(){
         that.game_status = that.STATUS.CRASH;
         SETTINGS.world_speed = 0;
 
-        that.boom.revive();
+        // that.boom.revive();
+        // that.boom.x = a.x;
+        // that.boom.y = a.y - 30;
+        // that.boom.animations.play('boom', 30, false);
 
-        that.boom.x = a.x;
-        that.boom.y = a.y - 30;
-
-        that.boom.animations.play('boom', 30, false);
+        that.play_boom_animation(a.x, a.y - 30);
 
         that.car.hide();
 
@@ -202,6 +268,7 @@ function JetBuggy(){
     that.button_click = function(){
         that.logo.hide();
         that.enemies_master.clean();
+        that.bomb.destroy();
 
         // if(that.clicked === false){
         //     that.clicked = true;
@@ -228,9 +295,6 @@ function JetBuggy(){
         that.score.reset();
         that.score.update();
 
-        if (that.boom.animations.isFinished){
-            that.boom.visible = false;
-        }
         that.jump_button.show();
 
         that.car.wake_up();
