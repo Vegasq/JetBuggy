@@ -164,7 +164,7 @@ function JetBuggy(){
 
                 game.stage.scale.setSize();
             } else {
-                game.stage.fullScreenScaleMode = pha.StageScaleMode.EXACT_FIT;
+                // game.stage.fullScreenScaleMode = pha.StageScaleMode.EXACT_FIT;
                 game.stage.scale.startFullScreen();
                 game.stage.width = Tools.screen_size()[0]  *multiplme;
                 game.stage.height = Tools.screen_size()[1] *multiplme;
