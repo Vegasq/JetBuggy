@@ -2,7 +2,7 @@
   "version": "0.1",
   "name": "JetBuggy",
   "description": "JetBuggy very special runner with bad end",
-  "launch_path": "index.html",
+  "launch_path": "/JetBuggy/index.html",
   "icons": {
     "16": "/icons/36.png",
     "48": "/icons/48.png",
