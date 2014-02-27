@@ -152,8 +152,8 @@ function JetBuggy(){
         that.logo.show();
         that.score.hide();
 
-        that.play_button.create(true, 'PLAY BETA', 300, that.show_car_selector);
-        that.go_fullscreen.create(true, 'FULLSCREEN', 450, function(){
+        that.play_button.create(true, 'PLAY BETA', game.world.centerY - 150, that.show_car_selector);
+        that.go_fullscreen.create(true, 'FULLSCREEN', game.world.centerY, function(){
             if(game.stage.scale.isFullScreen){
                 game.stage.scale.stopFullScreen();
                 game.stage.width = Tools.screen_size()[0]  *multiplme;
@@ -176,8 +176,8 @@ function JetBuggy(){
                 game.stage.scale.refresh();
             }
         });
-        that.select_car1.create(false, 'car', 150, that.select_car1_callback);
-        that.select_car2.create(false, 'car_blue', 300, that.select_car2_callback);
+        that.select_car1.create(false, 'car', game.world.centerY - 150, that.select_car1_callback);
+        that.select_car2.create(false, 'car_blue', game.world.centerY, that.select_car2_callback);
         that.car_selector_menu.hide();
 
         that.create_boom_animation();

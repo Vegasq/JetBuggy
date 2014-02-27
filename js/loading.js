@@ -122,9 +122,6 @@ function game_init(Phaser){
         true,
         false
     );
-    if(chrome){
-        chrome.app.window.onBoundsChanged.addListener(onresize);
-    }
     window.onresize = onresize;
 
 }
