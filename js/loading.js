@@ -1,4 +1,7 @@
 var game, jb, pha, p2, is_touch_device, multiplme;
+
+var w_for_check, h_for_check;
+
 var requires = [
     // "lib/p2.min",
     "lib/phaser1.1.6.min",
@@ -42,6 +45,19 @@ function screen_scaler(){
     game.stage.forcePortrait = true;
     game.stage.scale.setScreenSize(true);
 }
+
+function onresize() {
+    console.log(Math.abs(w_for_check - Tools.screen_size()[0]));
+    if(Math.abs(w_for_check - Tools.screen_size()[0]) > 200){
+        window.location = window.location;
+    }
+
+    console.log(Math.abs(w_for_check - Tools.screen_size()[1]));
+    if(Math.abs(h_for_check - Tools.screen_size()[1]) > 200){
+        window.location = window.location;
+    }
+
+};
 
 function libs_loaded(Phaser){
     if(Phaser){
@@ -90,7 +106,8 @@ function game_init(Phaser){
     var inch = dpi_to_inches(dpi);
     multiplme = get_m(inch);
 
-
+    w_for_check = Tools.screen_size()[0];
+    h_for_check = Tools.screen_size()[1];
 
     game = new Phaser.Game(
         Tools.screen_size()[0] *multiplme,
@@ -105,25 +122,11 @@ function game_init(Phaser){
         true,
         false
     );
-    // window.onresize = function(event) {
-    //     var dpi = get_dpi();
-    //     var inch = dpi_to_inches(dpi);
-    //     multiplme = get_m(inch);
+    if(chrome){
+        chrome.app.window.onBoundsChanged.addListener(onresize);
+    }
+    window.onresize = onresize;
 
-
-    //     var height = Tools.screen_size()[1] *multiplme;
-    //     var width = Tools.screen_size()[0] *multiplme;
-            
-    //     game.width = width;
-    //     game.height = height;
-    //     game.stage.bounds.width = width;
-    //     game.stage.bounds.height = height;
-            
-    //     if (game.renderType === Phaser.WEBGL)
-    //     {
-    //         game.renderer.resize(width, height);
-    //     }
-    // };
 }
 
 
