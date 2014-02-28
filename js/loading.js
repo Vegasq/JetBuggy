@@ -11,6 +11,7 @@ var requires = [
     "objects/CarList",
 
     "class/ui/Assets",
+    "class/ui/ScoreBoard",
     "class/ui/Background",
     "class/ui/JumpButton",
     "class/ui/Score",
@@ -33,7 +34,6 @@ var requires = [
     "class/tools/Gameplay",
     "class/tools/is_touch_device",
     "class/Car",
-
 
     "JetBuggy"
 ];

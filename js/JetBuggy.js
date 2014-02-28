@@ -35,6 +35,9 @@ function JetBuggy(){
 
         // UI
         that.score = new Score(that);
+        that.score_board = new ScoreBoard(that);
+
+
         that.logo = new Logo(that);
         that.jump_button = new JumpButton(that);
         that.bg = new Background(that);
@@ -58,6 +61,7 @@ function JetBuggy(){
         // obj.create() will be called from JetBuggy.create()
 
         that.to_be_called_at_create = [
+            that.score_board,
             that.jump_button,
 
             that.ground,
@@ -84,6 +88,7 @@ function JetBuggy(){
     that.preload = function(){
         that.init_game_objects();
         that.assets.load();
+        that.score_board.load_assets();
     };
 
     that.create_boom_animation = function(){
@@ -137,6 +142,7 @@ function JetBuggy(){
         game.stage.scale.setScreenSize(true);
     }
 
+
     that.create = function(){
         // pha.StageScaleMode.forceOrientation(false, true, 'blue_car');
         that.screen_scaler();
@@ -153,29 +159,31 @@ function JetBuggy(){
         that.score.hide();
 
         that.play_button.create(true, 'PLAY BETA', game.world.centerY - 150, that.show_car_selector);
-        that.go_fullscreen.create(true, 'FULLSCREEN', game.world.centerY, function(){
-            if(game.stage.scale.isFullScreen){
-                game.stage.scale.stopFullScreen();
-                game.stage.width = Tools.screen_size()[0]  *multiplme;
-                game.stage.height = Tools.screen_size()[1] *multiplme;
+        that.go_fullscreen.create(true, 'FULLSCREEN', game.world.centerY,
+            function(){
+                if(game.stage.scale.isFullScreen){
+                    game.stage.scale.stopFullScreen();
+                    game.stage.width = Tools.screen_size()[0]  *multiplme;
+                    game.stage.height = Tools.screen_size()[1] *multiplme;
 
-                game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
-                game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
+                    game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
+                    game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
 
-                game.stage.scale.setSize();
-            } else {
-                // game.stage.fullScreenScaleMode = pha.StageScaleMode.EXACT_FIT;
-                game.stage.scale.startFullScreen();
-                game.stage.width = Tools.screen_size()[0]  *multiplme;
-                game.stage.height = Tools.screen_size()[1] *multiplme;
+                    game.stage.scale.setSize();
+                } else {
+                    // game.stage.fullScreenScaleMode = pha.StageScaleMode.EXACT_FIT;
+                    game.stage.scale.startFullScreen();
+                    game.stage.width = Tools.screen_size()[0]  *multiplme;
+                    game.stage.height = Tools.screen_size()[1] *multiplme;
 
-                game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
-                game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
+                    game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
+                    game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
 
-                game.stage.scale.setSize();
-                game.stage.scale.refresh();
+                    game.stage.scale.setSize();
+                    game.stage.scale.refresh();
+                }
             }
-        });
+        );
         that.select_car1.create(false, 'car', game.world.centerY - 150, that.select_car1_callback);
         that.select_car2.create(false, 'car_blue', game.world.centerY, that.select_car2_callback);
         that.car_selector_menu.hide();
@@ -258,13 +266,16 @@ function JetBuggy(){
         that.car.hide();
 
         that.jump_button.hide();
-        that.main_menu.show();
 
-        that.logo.show();
+        jb.score_board.show();
+        // that.main_menu.show();
+
+        // that.logo.show();
     };
 
     // that.clicked = false;
     that.button_click = function(){
+        that.score_board.hide();
         that.logo.hide();
         that.enemies_master.clean();
         that.bomb.destroy();
