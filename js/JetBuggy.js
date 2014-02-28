@@ -158,8 +158,8 @@ function JetBuggy(){
         that.logo.show();
         that.score.hide();
 
-        that.play_button.create(true, 'PLAY BETA', game.world.centerY - 150, that.show_car_selector);
-        that.go_fullscreen.create(true, 'FULLSCREEN', game.world.centerY,
+        that.play_button.create(true, 'PLAY BETA', game.world.centerY - 75, that.show_car_selector);
+        that.go_fullscreen.create(true, 'FULLSCREEN', game.world.centerY + 75,
             function(){
                 if(game.stage.scale.isFullScreen){
                     game.stage.scale.stopFullScreen();
