@@ -12,6 +12,8 @@ function Score(main){
     that.create = function(){
         that.score_text = game.add.text(10, 10,
             '', {'font-size': 32, 'fill': '#ffffff'});
+        that.hide();
+
     }
 
     that.show = function(){

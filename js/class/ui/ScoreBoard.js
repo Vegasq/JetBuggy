@@ -49,7 +49,7 @@ function ScoreBoard(main){
 
     that.close_scoreboard = function(){
         that.hide();
-        that.main.main_menu.show();
+        that.main.main_menu.main_menu_container.show();
     }
 
     that.rescore = function(){

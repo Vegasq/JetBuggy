@@ -1,8 +1,14 @@
 body, html {
 margin: 0;
-background-color: #2c1607;
+background-color: black;
 }
 canvas {
 display: block;
-border: 0px solid #2c1607;
+border: 0px solid black;
+}
+#loading_text {
+    color:white;
+    position:fixed;
+    top:50%;
+    left: -webkit-calc(50% - 50px);
 }
