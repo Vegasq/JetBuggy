@@ -184,8 +184,8 @@ function JetBuggy(){
                 }
             }
         );
-        that.select_car1.create(false, 'car', game.world.centerY - 150, that.select_car1_callback);
-        that.select_car2.create(false, 'car_blue', game.world.centerY, that.select_car2_callback);
+        that.select_car1.create(false, 'car', game.world.centerY - 75, that.select_car1_callback);
+        that.select_car2.create(false, 'car_blue', game.world.centerY + 75, that.select_car2_callback);
         that.car_selector_menu.hide();
 
         that.create_boom_animation();
