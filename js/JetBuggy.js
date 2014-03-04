@@ -1,4 +1,9 @@
-function JetBuggy(){
+/*global clearInterval: false, clearTimeout: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
+
+var jb, multiplme, game, pha;
+var Assets, Sizer, MoveTimer, Gameplay, EnemiesMaster, Warnings, Walls, Bomb, Boom, Ground, Borders, Score, ScoreBoard, MainMenu, CarSelectorMenu, Logo, JumpButton, Background, TopBar, FPS, Car, Tools, SETTINGS, CarList;
+
+function JetBuggy() {
     "use strict";
 
     var that = this;
@@ -13,11 +18,11 @@ function JetBuggy(){
 
     that.game_status = that.STATUS.MENU;
 
-    that.assets_load = function(){
+    that.assets_load = function () {
 
-    }
+    };
 
-    that.init_game_objects = function(){
+    that.init_game_objects = function () {
         that.assets = new Assets();
         that.sizer = new Sizer();
         that.move_timer = new MoveTimer(that);
@@ -72,59 +77,57 @@ function JetBuggy(){
             that.car,
 
             that.borders,
-            that.bg,
-
-
+            that.bg
         ];
 
-    }
+    };
 
-    that.preload = function(){
+    that.preload = function () {
         that.init_game_objects();
         that.assets.load();
         that.score_board.load_assets();
     };
 
 
-    that.screen_scaler = function(){
+    that.screen_scaler = function () {
         game.stage.scaleMode = pha.StageScaleMode.EXACT_FIT;
         game.stage.forcePortrait = true;
         game.stage.scale.setScreenSize(true);
-    }
+    };
 
-    that.set_fullscreen = function(){
-        if(game.stage.scale.isFullScreen){
+    that.set_fullscreen = function () {
+        if (game.stage.scale.isFullScreen) {
             game.stage.scale.stopFullScreen();
-            game.stage.width = Tools.screen_size()[0]  *multiplme;
-            game.stage.height = Tools.screen_size()[1] *multiplme;
+            game.stage.width = Tools.screen_size()[0]  * multiplme;
+            game.stage.height = Tools.screen_size()[1] * multiplme;
 
-            game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
-            game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
+            game.stage.maxWidth = Tools.screen_size()[0]  * multiplme;
+            game.stage.maxHeight = Tools.screen_size()[1] * multiplme;
 
             game.stage.scale.setSize();
         } else {
             // game.stage.fullScreenScaleMode = pha.StageScaleMode.EXACT_FIT;
             game.stage.scale.startFullScreen();
-            game.stage.width = Tools.screen_size()[0]  *multiplme;
-            game.stage.height = Tools.screen_size()[1] *multiplme;
+            game.stage.width = Tools.screen_size()[0]  * multiplme;
+            game.stage.height = Tools.screen_size()[1] * multiplme;
 
-            game.stage.maxWidth = Tools.screen_size()[0]  *multiplme;
-            game.stage.maxHeight = Tools.screen_size()[1] *multiplme;
+            game.stage.maxWidth = Tools.screen_size()[0]  * multiplme;
+            game.stage.maxHeight = Tools.screen_size()[1] * multiplme;
 
             game.stage.scale.setSize();
             game.stage.scale.refresh();
         }
-    }
+    };
 
-    that.create = function(){
+    that.create = function () {
+        var i;
         that.screen_scaler();
 
         that.game_status = that.STATUS.MENU;
         that.selected_car = 'dark_car';
-
-        for (var i = that.to_be_called_at_create.length - 1; i >= 0; i--) {
-            that.to_be_called_at_create[i]['create']();
-        };
+        for (i = that.to_be_called_at_create.length - 1; i >= 0; i -= 1) {
+            that.to_be_called_at_create[i].create();
+        }
 
 
         document.addEventListener('touchstart', that.car.jump, false);
@@ -136,8 +139,8 @@ function JetBuggy(){
         that.move_timer.set_last_call_time();
     };
 
-    that.update = function(){
-        if(that.fps.is_fps_ok() === false){
+    that.update = function () {
+        if (that.fps.is_fps_ok() === false) {
             that.bg.slowdown();
         }
 
@@ -151,27 +154,27 @@ function JetBuggy(){
         game.physics.collide(that.ground.real_ground, that.bomb.bombs, that.badaboom);
     };
 
-    that.badaboom = function(a, b){
-        if(b.alive === false){
+    that.badaboom = function (a, b) {
+        if (b.alive === false) {
             return;
         }
-        if(that.game_status !== that.STATUS.GAME){
+        if (that.game_status !== that.STATUS.GAME) {
             return;
         }
-        if('vibrate' in navigator) {
+        if (navigator.hasOwnProperty('vibrate')) {
             navigator.vibrate(1000);
         }
 
-        if(that.bomb.is_ghost_bomb(b)){
+        if (that.bomb.is_ghost_bomb(b)) {
             return;
         }
 
-        if(b.key === 'newbomb'){
+        if (b.key === 'newbomb') {
             b.y = -130;
             b.kill();
         } else {
             b.x = game.width;
-            b.is_active = false;            
+            b.is_active = false;
         }
 
         that.bomb.destroy();
@@ -190,7 +193,7 @@ function JetBuggy(){
     };
 
 
-    that.button_click = function(){
+    that.button_click = function () {
         that.score_board.hide();
         that.logo.hide();
         that.enemies_master.clean();
@@ -214,13 +217,13 @@ function JetBuggy(){
         that.car.wake_up();
         
 
-        function matrix(){
+        function matrix() {
             that.game_status = that.STATUS.GAME;
         }
         setTimeout(matrix, 1000);
     };
 
-    that.render = function(){
+    that.render = function () {
     };
 }
 
