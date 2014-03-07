@@ -11,6 +11,7 @@ function Assets(){
         game.load.image('ground', that.folder + '/ground_small.png');
         game.load.image('border', that.folder + '/border.png');
         game.load.image('logo', that.folder + '/logo.png');
+        game.load.image('arrow', that.folder + '/arrow.png');
 
         game.load.spritesheet('car_blue', that.folder + '/buggy_blue.png', 144, 96, 3);
         game.load.spritesheet('jump_btn', that.folder + '/jump.png', 100, 100, 2);

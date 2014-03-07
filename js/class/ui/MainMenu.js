@@ -6,13 +6,14 @@ function MainMenu(main){
     that.create = function(){
         that.main_menu_container = new ButtonContainer(that);
         that.play_button = new SomeButton(that);
-        that.go_fullscreen = new SomeButton(that);
+        // that.go_fullscreen = new SomeButton(that);
         that.main_menu_container.add(that.play_button);
-        that.main_menu_container.add(that.go_fullscreen);
+        // that.main_menu_container.add(that.go_fullscreen);
 
 
-        that.play_button.create(true, 'PLAY BETA', game.world.centerY - 75, that.show_car_selector);
-        that.go_fullscreen.create(true, 'FULLSCREEN', game.world.centerY + 75,that.set_fullscreen);
+        that.play_button.create(false, 'arrow', game.world.centerY - 30, that.show_car_selector);
+        that.play_button.button.x -= 10;
+        // that.go_fullscreen.create(true, 'FULLSCREEN', game.world.centerY + 75,that.set_fullscreen);
 
     }
 
