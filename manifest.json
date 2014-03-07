@@ -2,18 +2,22 @@
     "name": "JetBuggy",
     "short_name": "JetBuggy",
     "description": "Small buggy at the endless road...",
-    "author": "Nikolay Yakovlev",
+    "author": "vegasq@gmail.com",
     "manifest_version": 2,
-    "version": "0.0.0.2",
-    "kiosk_enabled": true,
+    "version": "0.0.0.4",
+    "kiosk_enabled": false,
     "offline_enabled": true,
     "app": {
        "background": {
            "scripts": ["js/chromebg.js"]
         }
     },
+    "permissions": [
+        "storage"
+    ],
     "icons": {
         "16": "icons/16.png",
+        "96": "icons/96.png",
         "128": "icons/128.png"
     }
 }

@@ -53,7 +53,7 @@ function EnemiesMaster(main){
 
 
     that.reset_counter = function(){
-        that.bomb_delay = 99;
+        that.bomb_delay = 500;
         that.bomb_delay_counter = 99;
     }
 
@@ -78,7 +78,7 @@ function EnemiesMaster(main){
 
     that.try_create_barrier = function(){
         if(that.main.game_status === that.main.STATUS.GAME){
-            that.bomb_delay_counter += 1;
+            that.bomb_delay_counter += SETTINGS.world_speed;
 
             if(that.bomb_delay_counter > that.bomb_delay) {
                 that.bomb_delay_counter = 0;

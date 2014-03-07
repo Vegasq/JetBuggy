@@ -2,12 +2,18 @@ function Save(main){
     "use strict";
     var that = this;
     that.main = main;
-    that.ls = window.localStorage;
 
     that.LEVEL_KEY = "CURRENT_LEVEL";
     that.LEVEL_1 = "WERTHJ>:<LMKJKGBJVRJTMNU";
     that.LEVEL_2 = "QW#$^&FUHJKOL{}KIJU*(OY(";
     that.LEVEL_3 = "&T*(HOUJIPJKL)U*K&*TY&*O";
+
+
+    if (chrome.hasOwnProperty('storage')){
+        that.is_chrome_stor = true;
+    } else {
+        that.is_chrome_stor = false;
+    }
 
     that.get_current_level = function () {
         var level = that.get(that.LEVEL_KEY);
@@ -38,11 +44,19 @@ function Save(main){
     };
 
     that.set = function (key, val) {
-        that.ls.setItem(key, val);
+        if (that.is_chrome_stor) {
+            chrome.storage.sync.set({key: val}, function(data){ console.log(data); });
+        } else {
+            window.localStorage.setItem(key, val);
+        }
     };
 
     that.get = function (key) {
-        return that.ls.getItem(key);;
+        if (that.is_chrome_stor) {
+            return chrome.storage.sync.get(key, function(data){ console.log(data); });
+        } else {
+            return window.localStorage.getItem(key);;
+        }
     };
 
     that.supports_html5_storage = function() {
