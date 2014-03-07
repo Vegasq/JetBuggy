@@ -28,6 +28,8 @@ function JetBuggy() {
         that.move_timer = new MoveTimer(that);
         that.gameplay = new Gameplay(that);
 
+        that.save = new Save(that);
+
         // Enemies
         that.enemies_master = new EnemiesMaster(that);
         that.warnings = new Warnings(that);

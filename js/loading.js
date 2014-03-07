@@ -32,6 +32,7 @@ var requires = [
     "class/tools/Sizer",
     "class/tools/MoveTimer",
     "class/tools/Gameplay",
+    "class/tools/Save",
     "class/tools/is_touch_device",
     "class/Car",
 
