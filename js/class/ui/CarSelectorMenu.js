@@ -41,12 +41,12 @@ function CarSelectorMenu(main){
     }
 
     that.select_car1_callback = function(){
-        that.selected_car = 'dark_car';
+        that.main.selected_car = 'dark_car';
         that.main.button_click();
     }
 
     that.select_car2_callback = function(){
-        that.selected_car = 'blue_car';
+        that.main.selected_car = 'blue_car';
         that.main.button_click();
     }
 

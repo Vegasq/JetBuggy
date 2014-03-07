@@ -204,6 +204,7 @@ function JetBuggy() {
         that.car_selector_menu.hide();
         that.main_menu.main_menu_container.hide();
 
+        console.log(that.selected_car);
         that.car.change(CarList[that.selected_car]);
 
         SETTINGS.world_speed = SETTINGS.default_world_speed;
