@@ -1,4 +1,4 @@
-function JetBuggy(){
+function JetBuggy() {
     "use strict";
 
     var that = this;
@@ -13,11 +13,11 @@ function JetBuggy(){
 
     that.game_status = that.STATUS.MENU;
 
-    that.assets_load = function(){
+    that.assets_load = function () {
 
-    }
+    };
 
-    that.init_game_objects = function(){
+    that.init_game_objects = function () {
         that.assets = new Assets();
         that.sizer = new Sizer();
         that.move_timer = new MoveTimer(that);
