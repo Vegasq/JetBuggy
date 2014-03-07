@@ -1,5 +1,6 @@
 var appWin = null;
 function onBoundsChanged() {
+    console.log('onBoundsChanged');
     window.location = window.location;
 }
 

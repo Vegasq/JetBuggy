@@ -12,11 +12,12 @@ function Loader(){
     }
 
     that.onresize = function() {
-        if(Math.abs(w_for_check - Tools.screen_size()[0]) > 200){
+        console.log('resize');
+        if(Math.abs(w_for_check - Tools.screen_size()[0]) > 120){
             window.location = window.location;
         }
 
-        if(Math.abs(h_for_check - Tools.screen_size()[1]) > 200){
+        if(Math.abs(h_for_check - Tools.screen_size()[1]) > 120){
             window.location = window.location;
         }
 
@@ -90,7 +91,7 @@ function Loader(){
             false
         );
         that.hide_loading_text();
-        window.onresize = onresize;
+        window.onresize = that.onresize;
 
     }
 
