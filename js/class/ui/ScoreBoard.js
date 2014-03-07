@@ -37,8 +37,8 @@ function ScoreBoard(main){
 
         that.re_play_button = new SomeButton(that);
         that.re_play_button.create(
-            true,
-            'RESTART',
+            false,
+            'replay',
             game.world.centerY + (game.cache.getImage('score_board').height /2),
             that.close_scoreboard
         )
