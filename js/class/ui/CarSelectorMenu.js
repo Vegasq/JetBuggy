@@ -7,13 +7,37 @@ function CarSelectorMenu(main){
         that.car_selector_menu = new ButtonContainer(that);
         that.select_car1 = new SomeButton(that);
         that.select_car2 = new SomeButton(that);
+        that.select_car3 = new SomeButton(that);
         that.car_selector_menu.add(that.select_car1);
         that.car_selector_menu.add(that.select_car2);
+        that.car_selector_menu.add(that.select_car3);
 
-        that.select_car1.create(false, 'car', game.world.centerY - 75, that.select_car1_callback);
-        that.select_car2.create(false, 'car_blue', game.world.centerY + 75, that.select_car2_callback);
+        that.select_car1.create(false, 'car', game.world.centerY - 150, that.select_car1_callback);
+
+        if (that.main.save.get_current_level() > 1){
+            that.select_car2.create(false, 'car_blue', game.world.centerY, that.select_car2_callback);
+        } else {
+            that.select_car2.create(true, '25 POINTS', game.world.centerY, function(){});
+        }
+
+        if (that.main.save.get_current_level() > 2){
+            that.select_car3.create(false, 'car_blue', game.world.centerY + 150, that.select_car2_callback);
+        } else {
+            that.select_car3.create(true, '50 POINTS', game.world.centerY + 150, function(){});
+        }
+
         that.car_selector_menu.hide();
 
+    }
+
+    that.unlock_car2 = function(){
+        that.select_car2.create(false, 'car_blue', game.world.centerY, that.select_car2_callback);
+        that.car_selector_menu.hide();
+    }
+
+    that.unlock_car3 = function(){
+        that.select_car3.create(false, 'car_blue', game.world.centerY + 150, that.select_car2_callback);
+        that.car_selector_menu.hide();
     }
 
     that.select_car1_callback = function(){
