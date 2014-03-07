@@ -49,7 +49,6 @@ function SomeButton(main){
 
         }
 
-        // that.hide();
     }
 
     that.show = function(){

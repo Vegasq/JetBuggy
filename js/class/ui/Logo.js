@@ -19,6 +19,7 @@ function Logo(main){
             that.logo.scale.y = 0.7;
             that.logo.x = get_x(220);
         // }
+        that.show();
 
     }
     that.show = function(){
