@@ -6,6 +6,7 @@ var requires = [
     "objects/Settings",
     "objects/Tools",
     "objects/CarList",
+	"soundmgr",
 
     "class/ui/Assets",
     "class/ui/ScoreBoard",

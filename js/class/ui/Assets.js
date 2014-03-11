@@ -2,6 +2,7 @@ function Assets(){
     "use strict";
     var that = this;
     that.folder = "images";
+	that.audioFolder = "audio";
 
     that.load = function(){
         game.load.image('real_ground', that.folder + '/back_ground.gif');
@@ -28,5 +29,9 @@ function Assets(){
         game.load.image('bg0', that.folder + '/bg_1400_0.png');
         game.load.image('bg1', that.folder + '/bg_1400_1.png');
         game.load.image('bg2', that.folder + '/bg_1400_2.png');
+		
+		game.load.audio( 'snd_engine', that.audioFolder + '/engine.ogg', true );
+		game.load.audio( 'snd_explosion', that.audioFolder + '/explosion.ogg', true );
+		game.load.audio( 'snd_jump', that.audioFolder + '/jump.mp3', true );
     }
 }

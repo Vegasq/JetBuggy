@@ -1,7 +1,7 @@
 /*global clearInterval: false, clearTimeout: false, document: false, event: false, frames: false, history: false, Image: false, location: false, name: false, navigator: false, Option: false, parent: false, screen: false, setInterval: false, setTimeout: false, window: false, XMLHttpRequest: false */
 
 var jb, multiplme, game, pha;
-var Assets, Sizer, MoveTimer, Gameplay, EnemiesMaster, Warnings, Walls, Bomb, Boom, Ground, Borders, Score, ScoreBoard, MainMenu, CarSelectorMenu, Logo, JumpButton, Background, TopBar, FPS, Car, Tools, SETTINGS, CarList;
+var Assets, Sizer, MoveTimer, Gameplay, EnemiesMaster, Warnings, Walls, Bomb, Boom, Ground, Borders, Score, ScoreBoard, MainMenu, CarSelectorMenu, Logo, JumpButton, Background, TopBar, FPS, Car, Tools, SETTINGS, CarList, Soundmgr;
 
 function JetBuggy() {
     "use strict";
@@ -24,6 +24,7 @@ function JetBuggy() {
 
     that.init_game_objects = function () {
         that.assets = new Assets();
+		that.snd_manager = new Soundmgr();
         that.sizer = new Sizer();
         that.move_timer = new MoveTimer(that);
         that.gameplay = new Gameplay(that);
@@ -79,7 +80,8 @@ function JetBuggy() {
             that.car,
 
             that.borders,
-            that.bg
+            that.bg,
+			that.snd_manager
         ];
 
     };
@@ -190,6 +192,9 @@ function JetBuggy() {
         that.car.hide();
 
         that.jump_button.hide();
+		
+		that.snd_manager.stop_engine();
+		that.snd_manager.start_explosion();
 
         jb.score_board.show();
     };
@@ -218,6 +223,7 @@ function JetBuggy() {
 
         that.car.wake_up();
         
+		that.snd_manager.start_engine();
 
         function matrix() {
             that.game_status = that.STATUS.GAME;
