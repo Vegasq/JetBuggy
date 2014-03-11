@@ -141,6 +141,8 @@ function JetBuggy() {
         game.physics.maxObjects = 0;
 
         that.move_timer.set_last_call_time();
+		
+		that.snd_manager.start_main_theme();
     };
 
     that.update = function () {

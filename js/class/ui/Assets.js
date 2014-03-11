@@ -33,5 +33,8 @@ function Assets(){
 		game.load.audio( 'snd_engine', that.audioFolder + '/engine.ogg', true );
 		game.load.audio( 'snd_explosion', that.audioFolder + '/explosion.ogg', true );
 		game.load.audio( 'snd_jump', that.audioFolder + '/jump.mp3', true );
+		game.load.audio( 'snd_main_1', that.audioFolder + '/main_1.mp3', true );
+		game.load.audio( 'snd_main_2', that.audioFolder + '/main_2.mp3', true );
+		
     }
 }
