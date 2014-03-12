@@ -52,12 +52,11 @@ function SoundManager(){
 
     that.mute = function(){
         if(that.is_paused === true){
-            game.sound.resumeAll();
-            that.is_paused = false;
+            game.sound.volume = 1;
         } else {
-            game.sound.pauseAll();
-            that.is_paused = true;
+            game.sound.volume = 0;
         }
+        that.is_paused = !that.is_paused;
     }
 
 }
