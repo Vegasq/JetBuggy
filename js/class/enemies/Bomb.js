@@ -83,7 +83,7 @@ function Bomb(main) {
                     that.main.score.score += 1;
                     that.main.score.update();
 					
-                    that.main.snd_manager.start_explosion();
+                    that.main.sound_manager.start_explosion();
 
                     setTimeout(function () {
                         item.already_calculated = false;

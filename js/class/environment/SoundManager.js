@@ -51,7 +51,6 @@ function SoundManager(){
     }
 
     that.mute = function(){
-        console.log(game.sound.mute);
         if(that.is_paused === true){
             game.sound.resumeAll();
             that.is_paused = false;
