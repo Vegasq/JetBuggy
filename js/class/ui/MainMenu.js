@@ -15,6 +15,13 @@ function MainMenu(main){
         that.play_button.button.x -= 10;
         // that.go_fullscreen.create(true, 'FULLSCREEN', game.world.centerY + 75,that.set_fullscreen);
 
+        that.button = game.add.button(
+            game.world.width - 55, game.world.height - 55, 
+            'sound',
+            function(){
+                that.main.sound_manager.mute();
+            },
+            that.main, 0,0,0);
     }
 
     that.show_car_selector = function(){

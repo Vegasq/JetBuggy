@@ -79,6 +79,7 @@ function Car(main){
                 navigator.vibrate(100);
             }
             that.sprite.body.velocity.y = that.JUMP_POWER;
+            that.main.sound_manager.start_jump();
         }
     }
 

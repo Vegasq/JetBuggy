@@ -2,6 +2,7 @@ function Assets(){
     "use strict";
     var that = this;
     that.folder = "images";
+	that.audioFolder = "audio";
 
     that.load = function(){
         game.load.image('real_ground', that.folder + '/back_ground.gif');
@@ -14,6 +15,8 @@ function Assets(){
 
         game.load.image('arrow', that.folder + '/arrow.png');
         game.load.image('replay', that.folder + '/replay.png');
+
+        game.load.image('sound', that.folder + '/sound.png');
 
         game.load.spritesheet('car_blue', that.folder + '/buggy_blue.png', 144, 96, 3);
         game.load.spritesheet('jump_btn', that.folder + '/jump.png', 100, 100, 2);
@@ -28,5 +31,12 @@ function Assets(){
         game.load.image('bg0', that.folder + '/bg_1400_0.png');
         game.load.image('bg1', that.folder + '/bg_1400_1.png');
         game.load.image('bg2', that.folder + '/bg_1400_2.png');
+		
+		game.load.audio( 'snd_engine', that.audioFolder + '/engine.ogg', true );
+		game.load.audio( 'snd_explosion', that.audioFolder + '/explosion.ogg', true );
+		game.load.audio( 'snd_jump', that.audioFolder + '/jump.mp3', true );
+		game.load.audio( 'snd_main_1', that.audioFolder + '/main_1.mp3', true );
+		game.load.audio( 'snd_main_2', that.audioFolder + '/main_2.mp3', true );
+		
     }
 }
