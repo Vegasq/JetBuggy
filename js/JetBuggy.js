@@ -24,7 +24,7 @@ function JetBuggy() {
 
     that.init_game_objects = function () {
         that.assets = new Assets();
-        that.sound_manager = new SoundManager();
+        that.sound_manager = new SoundManager(that);
         that.sizer = new Sizer();
         that.move_timer = new MoveTimer(that);
         that.gameplay = new Gameplay(that);

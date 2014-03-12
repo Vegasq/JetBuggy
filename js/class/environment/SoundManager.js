@@ -1,6 +1,7 @@
-function SoundManager(){
+function SoundManager(main){
     "use strict";
     var that = this;
+    that.main = main;
     
     that.engine = false;
     that.explosion = false;
@@ -23,6 +24,10 @@ function SoundManager(){
             that.main_theme = game.add.audio( "snd_main_2" );
         }
         that.main_theme.play( '', 0, 1, true, false );
+
+        if(that.main.save.get(that.main.save.SOUND_KEY) === that.main.save.SOUND_OFF){
+            that.mute();
+        }
     }
     
     that.start_main_theme = function()
@@ -52,9 +57,11 @@ function SoundManager(){
 
     that.mute = function(){
         if(that.is_paused === true){
-            game.sound.volume = 1;
+            game.sound.mute = false;
+            that.main.save.set(that.main.save.SOUND_KEY, that.main.save.SOUND_ON);
         } else {
-            game.sound.volume = 0;
+            game.sound.mute = true;
+            that.main.save.set(that.main.save.SOUND_KEY, that.main.save.SOUND_OFF);
         }
         that.is_paused = !that.is_paused;
     }

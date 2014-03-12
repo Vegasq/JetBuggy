@@ -9,6 +9,9 @@ function Save(main){
     that.LEVEL_2 = "QW#$^&FUHJKOL{}KIJU*(OY(";
     that.LEVEL_3 = "&T*(HOUJIPJKL)U*K&*TY&*O";
 
+    that.SOUND_KEY = "SOUND_STATUS";
+    that.SOUND_ON = 'ON';
+    that.SOUND_OFF = 'OFF';
 
     if (chrome !== undefined && chrome.hasOwnProperty('storage')){
         that.is_chrome_stor = true;
