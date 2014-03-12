@@ -21,5 +21,5 @@ var SETTINGS = {
     'ground_start': 0.7,
     'frame_counter': 0,
     'gravity': 500,
-    'jump_power': -350,
+    'jump_power': -350
 }

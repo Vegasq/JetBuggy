@@ -1,3 +1,4 @@
+var chrome;
 function Save(main){
     "use strict";
     var that = this;
@@ -9,7 +10,7 @@ function Save(main){
     that.LEVEL_3 = "&T*(HOUJIPJKL)U*K&*TY&*O";
 
 
-    if (chrome.hasOwnProperty('storage')){
+    if (chrome !== undefined && chrome.hasOwnProperty('storage')){
         that.is_chrome_stor = true;
     } else {
         that.is_chrome_stor = false;

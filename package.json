@@ -3,6 +3,7 @@
   "name": "JetBuggy",
   "description": "JetBuggy",
   "version": "0.0.0.1",
+  "chromium-args" : "--enable-webgl --ignore-gpu-blacklist",
   "keywords": [ "buggy", "runner" ],
   "window": {
     "title": "JetBuggy",
